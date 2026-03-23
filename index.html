@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contractor vs Employee True Cost Calculator 2025 | Real Hiring Cost Breakdown</title>
+  <meta name="description" content="Calculate the true cost of hiring a W2 employee vs 1099 contractor. Includes payroll taxes, benefits, workers comp, and unemployment insurance. Free tool for US small business owners."/>
+  <meta name="keywords" content="contractor vs employee cost calculator, true cost of hiring an employee, 1099 vs W2 calculator, employee vs contractor comparison, small business hiring cost"/>
+  <link rel="canonical" href="https://yourdomain.com/contractor-vs-employee-calculator/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Nunito+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Contractor vs Employee True Cost Calculator","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much more does a W2 employee cost than their salary?","acceptedAnswer":{"@type":"Answer","text":"A W2 employee typically costs 25-40% more than their base salary when you add payroll taxes, unemployment insurance, workers comp, and benefits."}},{"@type":"Question","name":"What is SUTA?","acceptedAnswer":{"@type":"Answer","text":"SUTA (State Unemployment Tax Act) is a state-level unemployment insurance tax paid entirely by the employer, applied to the first $7,000-$9,000 of each employee's annual wages."}},{"@type":"Question","name":"What are the risks of misclassifying an employee as a contractor?","acceptedAnswer":{"@type":"Answer","text":"Misclassifying a W2 employee as a 1099 contractor can result in IRS back taxes, interest, and fines from $50 to $1,000 per misclassified worker."}}]}</script>
+  <style>
+    :root {
+      --g-dark:   #14532d;
+      --g-mid:    #166534;
+      --g-main:   #16a34a;
+      --g-light:  #22c55e;
+      --g-pale:   #dcfce7;
+      --g-bg:     #f0fdf4;
+      --white:    #ffffff;
+      --off:      #f8faf9;
+      --ink:      #111827;
+      --ink2:     #374151;
+      --muted:    #6b7280;
+      --border:   #d1fae5;
+      --borderg:  #e5e7eb;
+      --blue:     #2563eb;
+      --orange:   #ea580c;
+      --shadow:   0 4px 32px rgba(22,101,52,0.11);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Nunito Sans',sans-serif;background:var(--off);color:var(--ink);line-height:1.65}
+
+    /* HEADER */
+    header{background:var(--g-dark);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+    .logo{font-family:'Nunito',sans-serif;font-weight:800;font-size:1.2rem;color:#fff;display:flex;align-items:center;gap:9px}
+    .logo-box{width:28px;height:28px;background:var(--g-light);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+    .logo em{color:var(--g-light);font-style:normal}
+    .hbadge{background:rgba(255,255,255,.1);color:#d1fae5;font-size:.73rem;font-weight:600;padding:4px 13px;border-radius:20px;border:1px solid rgba(255,255,255,.15)}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,var(--g-dark) 0%,var(--g-mid) 65%,#1c7a40 100%);padding:58px 24px 76px;text-align:center;position:relative;overflow:hidden}
+    .hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:44px;background:var(--off);clip-path:ellipse(55% 100% at 50% 100%)}
+    .hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);color:#d1fae5;font-size:.79rem;font-weight:600;padding:5px 16px;border-radius:20px;border:1px solid rgba(255,255,255,.18);margin-bottom:20px}
+    .hero h1{font-family:'Nunito',sans-serif;font-size:clamp(1.85rem,5vw,3rem);font-weight:800;color:#fff;line-height:1.18;max-width:660px;margin:0 auto 15px}
+    .hero h1 em{color:var(--g-light);font-style:normal;background:rgba(34,197,94,.15);border-radius:6px;padding:0 7px}
+    .hero p{color:#bbf7d0;max-width:500px;margin:0 auto;font-size:1.03rem}
+    .hero-stats{display:flex;justify-content:center;gap:36px;margin-top:30px;flex-wrap:wrap}
+    .hstat strong{display:block;font-family:'Nunito',sans-serif;font-size:1.55rem;font-weight:800;color:var(--g-light);line-height:1;margin-bottom:3px}
+    .hstat span{font-size:.78rem;color:#bbf7d0}
+
+    /* LAYOUT */
+    .container{max-width:860px;margin:0 auto;padding:0 20px}
+    .wrap{margin-top:-22px;position:relative;z-index:10;padding-bottom:72px}
+
+    /* CARD */
+    .card{background:var(--white);border-radius:18px;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden}
+
+    /* SECTION HEAD */
+    .sec-head{padding:30px 36px 0;display:flex;align-items:flex-start;gap:14px}
+    .sec-icon{width:38px;height:38px;background:var(--g-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;margin-top:2px}
+    .sec-head h2{font-family:'Nunito',sans-serif;font-size:1.18rem;font-weight:800;color:var(--g-dark);margin-bottom:2px}
+    .sec-head p{font-size:.84rem;color:var(--muted)}
+    @media(max-width:600px){.sec-head{padding:22px 20px 0}.form-body{padding:18px 20px 26px!important}}
+
+    /* FORM */
+    .form-body{padding:22px 36px 32px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+    .fg{display:flex;flex-direction:column;gap:7px}
+    .fg.full{grid-column:1/-1}
+
+    /* FIELD LABEL */
+    .flabel{display:flex;align-items:center;gap:6px;font-size:.87rem;font-weight:700;color:var(--ink2)}
+    .hbtn{width:18px;height:18px;background:var(--g-pale);color:var(--g-mid);border-radius:50%;font-size:.7rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border:none;flex-shrink:0;transition:background .2s}
+    .hbtn:hover{background:var(--g-main);color:#fff}
+
+    /* TOOLTIP */
+    .tip{display:none;background:var(--g-dark);color:#e7f9ed;font-size:.82rem;line-height:1.58;padding:13px 17px;border-radius:11px;margin-top:1px}
+    .tip.on{display:block}
+    .tip strong{color:var(--g-light)}
+    .tip ul{padding-left:17px;margin-top:7px}
+    .tip ul li{margin-bottom:4px}
+
+    /* LIVE PILL */
+    .pill{display:inline-flex;align-items:center;gap:5px;background:var(--g-pale);color:var(--g-dark);font-size:.77rem;font-weight:700;padding:3px 11px;border-radius:20px;margin-top:4px;width:fit-content}
+    .dot{width:6px;height:6px;background:var(--g-main);border-radius:50%;flex-shrink:0}
+
+    /* INPUTS */
+    input,select{padding:11px 14px;border:2px solid var(--borderg);border-radius:10px;font-family:'Nunito Sans',sans-serif;font-size:.97rem;background:var(--off);color:var(--ink);transition:border-color .2s,box-shadow .2s;outline:none;appearance:none;width:100%}
+    input:focus,select:focus{border-color:var(--g-main);box-shadow:0 0 0 3px rgba(22,163,74,.1);background:#fff}
+    .iw{position:relative}
+    .ipfx{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.95rem;pointer-events:none;font-weight:600}
+    .iw input{padding-left:27px}
+
+    /* TOGGLE */
+    .toggle{display:flex;border:2px solid var(--borderg);border-radius:10px;overflow:hidden;background:var(--off)}
+    .topt{flex:1}
+    .topt input[type=radio]{display:none}
+    .topt label{display:block;text-align:center;padding:11px 6px;cursor:pointer;font-size:.84rem;font-weight:600;color:var(--muted);transition:all .18s;border-right:2px solid var(--borderg);line-height:1.3}
+    .topt:last-child label{border-right:none}
+    .topt input[type=radio]:checked+label{background:var(--g-dark);color:#fff}
+    .topt label small{display:block;font-size:.71rem;opacity:.8;margin-top:1px}
+
+    /* BUTTON */
+    .btn{width:100%;padding:16px;background:var(--g-mid);color:#fff;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;cursor:pointer;margin-top:22px;box-shadow:0 4px 16px rgba(22,101,52,.28);display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,transform .1s}
+    .btn:hover{background:var(--g-dark);box-shadow:0 6px 22px rgba(22,101,52,.38)}
+    .btn:active{transform:scale(.99)}
+
+    /* RESULTS */
+    #results{display:none;padding:0 36px 36px}
+    @media(max-width:600px){#results{padding:0 20px 24px}}
+    .rdivider{height:2px;background:linear-gradient(90deg,var(--g-pale),var(--g-light),var(--g-pale));margin-bottom:26px}
+
+    /* VERDICT */
+    .verdict{border-radius:14px;padding:22px 24px;margin-bottom:24px;display:flex;align-items:flex-start;gap:16px;border:2px solid #86efac;background:var(--g-bg)}
+    .vemoji{font-size:2.1rem;flex-shrink:0;line-height:1}
+    .vbody strong{font-family:'Nunito',sans-serif;font-size:1.45rem;font-weight:800;color:var(--g-dark);display:block;line-height:1.2;margin-bottom:5px}
+    .vbody p{font-size:.9rem;color:var(--muted);line-height:1.55}
+    .vbody p b{color:var(--ink)}
+
+    /* PER-MONTH ROW */
+    .pmrow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+    @media(max-width:520px){.pmrow{grid-template-columns:1fr}}
+    .pmc{background:var(--white);border:1px solid var(--borderg);border-radius:12px;padding:15px;text-align:center}
+    .pmc .pmv{font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:800;color:var(--g-dark);line-height:1;margin-bottom:4px}
+    .pmc .pml{font-size:.77rem;color:var(--muted);line-height:1.35}
+
+    /* COMPARE COLS */
+    .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px}
+    @media(max-width:520px){.cgrid{grid-template-columns:1fr}}
+    .ccol{border-radius:12px;overflow:hidden;border:2px solid var(--borderg)}
+    .chead{padding:13px 18px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;display:flex;align-items:center;gap:8px}
+    .chead.w2{background:#eff6ff;color:#1e40af;border-bottom:2px solid #bfdbfe}
+    .chead.c99{background:#fff7ed;color:#9a3412;border-bottom:2px solid #fed7aa}
+    .chead .badge{margin-left:auto;font-size:.71rem;padding:2px 9px;border-radius:20px;font-weight:600}
+    .chead.w2 .badge{background:#dbeafe;color:#1e40af}
+    .chead.c99 .badge{background:#ffedd5;color:#9a3412}
+    .crow{display:flex;justify-content:space-between;align-items:center;padding:9px 18px;font-size:.87rem;border-top:1px solid var(--borderg)}
+    .crow .l{color:var(--muted)}
+    .crow .v{font-weight:600}
+    .crow .v.z{color:#d1d5db}
+    .crow.tot{background:var(--off);border-top:2px solid var(--borderg);padding:12px 18px}
+    .crow.tot .l{font-family:'Nunito',sans-serif;font-weight:800;font-size:.84rem;color:var(--ink)}
+    .crow.tot .v{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:800}
+    .crow.tot.w2t .v{color:var(--blue)}
+    .crow.tot.c99t .v{color:var(--orange)}
+
+    /* BARS */
+    .barwrap{background:var(--off);border-radius:12px;padding:22px;margin-bottom:22px;border:1px solid var(--borderg)}
+    .barwrap h3{font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:800;color:var(--g-dark);margin-bottom:18px}
+    .brow{display:flex;align-items:center;gap:12px;margin-bottom:12px;font-size:.84rem}
+    .blbl{width:148px;flex-shrink:0;color:var(--ink2);font-weight:500}
+    .btrack{flex:1;height:10px;background:#e5e7eb;border-radius:5px;overflow:hidden}
+    .bfill{height:100%;border-radius:5px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+    .bfill.s{background:var(--g-mid)}
+    .bfill.t{background:var(--blue)}
+    .bfill.i{background:#d97706}
+    .bfill.b{background:#7c3aed}
+    .bamt{width:76px;text-align:right;font-weight:600;flex-shrink:0}
+
+    /* SHARE */
+    .srow{display:flex;align-items:center;gap:10px;padding-top:18px;border-top:1px solid var(--borderg);flex-wrap:wrap}
+    .srow span{font-size:.84rem;color:var(--muted);font-weight:500}
+    .sbtn{padding:8px 16px;border-radius:8px;border:2px solid var(--borderg);background:#fff;font-family:'Nunito Sans',sans-serif;font-size:.83rem;font-weight:600;cursor:pointer;color:var(--ink);transition:all .18s}
+    .sbtn:hover{border-color:var(--g-main);color:var(--g-dark)}
+
+    /* CONTENT */
+    .cbk{margin-top:54px}
+    .cbk h2{font-family:'Nunito',sans-serif;font-size:1.48rem;font-weight:800;color:var(--g-dark);margin-bottom:13px}
+    .cbk p{color:var(--ink2);margin-bottom:12px;font-size:.97rem}
+    .srow3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:26px 0}
+    @media(max-width:580px){.srow3{grid-template-columns:1fr}}
+    .sc{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px;border-top:3px solid var(--g-main)}
+    .sc .sn{font-family:'Nunito',sans-serif;font-size:1.85rem;font-weight:800;color:var(--g-dark);line-height:1;margin-bottom:6px}
+    .sc p{font-size:.82rem;color:var(--muted);margin:0}
+
+    /* FAQ */
+    .faqwrap{margin-top:54px;padding-bottom:76px}
+    .faqwrap h2{font-family:'Nunito',sans-serif;font-size:1.48rem;font-weight:800;color:var(--g-dark);margin-bottom:20px}
+    .fitem{border:1px solid var(--borderg);border-radius:12px;margin-bottom:9px;background:var(--white);overflow:hidden;transition:box-shadow .2s}
+    .fitem:hover{box-shadow:0 2px 14px rgba(22,101,52,.08)}
+    .fq{width:100%;text-align:left;padding:16px 22px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:.96rem;font-weight:700;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .fq:hover{background:var(--off)}
+    .fchev{flex-shrink:0;width:26px;height:26px;background:var(--g-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.83rem;color:var(--g-dark);transition:transform .22s,background .2s}
+    .fq.on .fchev{transform:rotate(180deg);background:var(--g-mid);color:#fff}
+    .fa{display:none;padding:0 22px 18px;font-size:.92rem;color:var(--ink2);line-height:1.72;border-top:1px solid var(--borderg);padding-top:15px}
+    .fa.on{display:block}
+
+    /* FOOTER */
+    footer{background:var(--g-dark);color:#a7f3d0;text-align:center;padding:32px 20px;font-size:.82rem;line-height:1.85}
+    footer strong{color:#fff;font-family:'Nunito',sans-serif;font-size:1rem}
+    footer a{color:#6ee7b7;text-decoration:none}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    .anim{animation:fadeUp .42s ease forwards}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><div class="logo-box">💼</div>True<em>Cost</em>Hiring</div>
+  <div class="hbadge">Free · 2025 Rates</div>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">🇺🇸 Built for US Small Business Owners</div>
+  <h1>What Does an Employee<br/><em>Really</em> Cost You?</h1>
+  <p>Go beyond the salary — see every tax, fee, and benefit you're on the hook for before your next hire.</p>
+  <div class="hero-stats">
+    <div class="hstat"><strong>~32%</strong><span>Average hidden cost<br/>above base salary</span></div>
+    <div class="hstat"><strong>7.65%</strong><span>Minimum payroll tax<br/>every employer pays</span></div>
+    <div class="hstat"><strong>50 States</strong><span>Real unemployment<br/>rates built in</span></div>
+  </div>
+</div>
+
+<div class="container wrap">
+  <div class="card">
+
+    <div class="sec-head">
+      <div class="sec-icon">🧮</div>
+      <div>
+        <h2>Enter Your Hiring Details</h2>
+        <p>Tap the <strong>?</strong> button next to any field for a plain-English explanation of what it means</p>
+      </div>
+    </div>
+
+    <div class="form-body">
+      <div class="form-grid">
+
+        <!-- SALARY -->
+        <div class="fg">
+          <div class="flabel">Annual Salary or Contract Rate <button class="hbtn" onclick="tip('t-sal')">?</button></div>
+          <div class="tip" id="t-sal">
+            <strong>What is this?</strong> Enter the total annual pay you plan to offer — before any taxes are taken out. If you're thinking hourly, multiply: <strong>$25/hr × 40 hrs × 52 weeks = $52,000</strong>. For a contractor, enter what you'd pay them annually at their rate. This is the starting point — everything else is added on top.
+          </div>
+          <div class="iw"><span class="ipfx">$</span><input type="number" id="salary" value="65000" min="1000" max="2000000" oninput="pills()"/></div>
+        </div>
+
+        <!-- STATE -->
+        <div class="fg">
+          <div class="flabel">State (Unemployment Insurance Rate) <button class="hbtn" onclick="tip('t-state')">?</button></div>
+          <div class="tip" id="t-state">
+            <strong>What is SUTA?</strong> Every US state runs its own Unemployment Insurance (UI) program. As an employer, you pay a percentage of each employee's wages into this fund every quarter — so if they're ever laid off, they can collect unemployment benefits. This is called <strong>SUTA</strong> (State Unemployment Tax Act).<br/><br/>
+            <ul>
+              <li><strong>You pay it 100%</strong> — it is never deducted from the employee's paycheck</li>
+              <li>Applies only to the <strong>first $7,000–$9,000</strong> of wages per year (wage base varies by state)</li>
+              <li>New employers get a <strong>standard starting rate</strong> shown in the dropdown below</li>
+              <li>Your rate can <strong>increase</strong> if you lay off many workers, or <strong>decrease</strong> over time if you rarely do</li>
+              <li>Example: California SUTA 3.4% on first $9,000 = <strong>$306/year per employee</strong></li>
+            </ul>
+          </div>
+          <select id="state" onchange="pills()">
+            <option value="AL|2.70">Alabama — SUTA 2.70%</option>
+            <option value="AK|1.00">Alaska — SUTA 1.00%</option>
+            <option value="AZ|2.00">Arizona — SUTA 2.00%</option>
+            <option value="AR|3.10">Arkansas — SUTA 3.10%</option>
+            <option value="CA|3.40">California — SUTA 3.40%</option>
+            <option value="CO|1.70">Colorado — SUTA 1.70%</option>
+            <option value="CT|3.20">Connecticut — SUTA 3.20%</option>
+            <option value="DE|1.80">Delaware — SUTA 1.80%</option>
+            <option value="FL|2.70">Florida — SUTA 2.70%</option>
+            <option value="GA|2.70">Georgia — SUTA 2.70%</option>
+            <option value="HI|3.00">Hawaii — SUTA 3.00%</option>
+            <option value="ID|1.50">Idaho — SUTA 1.50%</option>
+            <option value="IL|3.40" selected>Illinois — SUTA 3.40%</option>
+            <option value="IN|2.50">Indiana — SUTA 2.50%</option>
+            <option value="IA|1.00">Iowa — SUTA 1.00%</option>
+            <option value="KS|2.70">Kansas — SUTA 2.70%</option>
+            <option value="KY|2.70">Kentucky — SUTA 2.70%</option>
+            <option value="LA|1.60">Louisiana — SUTA 1.60%</option>
+            <option value="ME|2.50">Maine — SUTA 2.50%</option>
+            <option value="MD|2.60">Maryland — SUTA 2.60%</option>
+            <option value="MA|2.90">Massachusetts — SUTA 2.90%</option>
+            <option value="MI|2.70">Michigan — SUTA 2.70%</option>
+            <option value="MN|1.00">Minnesota — SUTA 1.00%</option>
+            <option value="MS|1.00">Mississippi — SUTA 1.00%</option>
+            <option value="MO|2.10">Missouri — SUTA 2.10%</option>
+            <option value="MT|1.00">Montana — SUTA 1.00%</option>
+            <option value="NE|1.25">Nebraska — SUTA 1.25%</option>
+            <option value="NV|2.00">Nevada — SUTA 2.00%</option>
+            <option value="NH|1.70">New Hampshire — SUTA 1.70%</option>
+            <option value="NJ|3.40">New Jersey — SUTA 3.40%</option>
+            <option value="NM|1.00">New Mexico — SUTA 1.00%</option>
+            <option value="NY|3.40">New York — SUTA 3.40%</option>
+            <option value="NC|1.20">North Carolina — SUTA 1.20%</option>
+            <option value="ND|1.00">North Dakota — SUTA 1.00%</option>
+            <option value="OH|2.70">Ohio — SUTA 2.70%</option>
+            <option value="OK|2.70">Oklahoma — SUTA 2.70%</option>
+            <option value="OR|2.60">Oregon — SUTA 2.60%</option>
+            <option value="PA|2.80">Pennsylvania — SUTA 2.80%</option>
+            <option value="RI|2.40">Rhode Island — SUTA 2.40%</option>
+            <option value="SC|1.00">South Carolina — SUTA 1.00%</option>
+            <option value="SD|1.20">South Dakota — SUTA 1.20%</option>
+            <option value="TN|2.70">Tennessee — SUTA 2.70%</option>
+            <option value="TX|2.70">Texas — SUTA 2.70%</option>
+            <option value="UT|1.00">Utah — SUTA 1.00%</option>
+            <option value="VT|1.00">Vermont — SUTA 1.00%</option>
+            <option value="VA|2.50">Virginia — SUTA 2.50%</option>
+            <option value="WA|1.00">Washington — SUTA 1.00%</option>
+            <option value="WV|2.70">West Virginia — SUTA 2.70%</option>
+            <option value="WI|2.50">Wisconsin — SUTA 2.50%</option>
+            <option value="WY|1.60">Wyoming — SUTA 1.60%</option>
+          </select>
+          <div class="pill"><div class="dot"></div><span id="p-suta">Loading...</span></div>
+        </div>
+
+        <!-- JOB CATEGORY -->
+        <div class="fg">
+          <div class="flabel">Job Category (Workers Comp Rate) <button class="hbtn" onclick="tip('t-wc')">?</button></div>
+          <div class="tip" id="t-wc">
+            <strong>What is Workers Compensation?</strong> It's mandatory insurance you must purchase for every W2 employee. If they get hurt on the job, workers comp pays for their medical bills and lost wages — protecting both them and you from a lawsuit.<br/><br/>
+            <strong>The rate is based on how physically risky the job is:</strong>
+            <ul>
+              <li>🖥️ <strong>Office / Admin (0.5%)</strong> — desk jobs, receptionists, bookkeepers, data entry clerks</li>
+              <li>💻 <strong>Professional / Technical (1.2%)</strong> — software developers, accountants, marketers, graphic designers, analysts</li>
+              <li>🛒 <strong>Sales / Service / Driver (2.5%)</strong> — sales reps, customer service agents, delivery drivers, retail workers</li>
+              <li>🔧 <strong>Skilled Trades (5%)</strong> — electricians, plumbers, HVAC technicians, auto mechanics</li>
+              <li>🏗️ <strong>Construction / Heavy Labor (10%)</strong> — general laborers, roofers, welders, heavy machinery operators</li>
+            </ul>
+            <strong>1099 contractors must carry their own workers comp policy — your cost is $0.</strong>
+          </div>
+          <select id="jobCat" onchange="pills()">
+            <option value="0.005">🖥️ Office / Administrative — 0.5%</option>
+            <option value="0.012" selected>💻 Professional / Technical — 1.2%</option>
+            <option value="0.025">🛒 Sales / Service / Driver — 2.5%</option>
+            <option value="0.05">🔧 Skilled Trades (Electrician, Plumber) — 5%</option>
+            <option value="0.10">🏗️ Construction / Heavy Labor — 10%</option>
+          </select>
+          <div class="pill"><div class="dot"></div><span id="p-wc">Loading...</span></div>
+        </div>
+
+        <!-- HOURS -->
+        <div class="fg">
+          <div class="flabel">Hours Per Week <button class="hbtn" onclick="tip('t-hr')">?</button></div>
+          <div class="tip" id="t-hr">
+            <strong>What is this for?</strong> This is used to calculate your employee's <strong>true hourly cost</strong> once all taxes and benefits are added. For example, a $65,000 employee working 40 hrs/week has a sticker hourly rate of $31.25 — but their true all-in hourly cost is closer to $40–$45. This helps you compare fairly with a contractor's hourly rate.
+          </div>
+          <input type="number" id="hours" value="40" min="1" max="80"/>
+        </div>
+
+        <!-- BENEFITS -->
+        <div class="fg full">
+          <div class="flabel">Benefits Package <button class="hbtn" onclick="tip('t-ben')">?</button></div>
+          <div class="tip" id="t-ben">
+            <strong>What's included in each option?</strong><br/><br/>
+            🚫 <strong>None ($0/yr)</strong> — No employer-provided benefits. The employee pays for all their own health insurance, retirement savings, etc. Common for part-time hires, short contracts, or very early-stage startups.<br/><br/>
+            🟡 <strong>Basic (~$7,500/yr)</strong> — A lean but real-world package: health insurance contribution (~$5,500), dental &amp; vision (~$1,000), minimal 401(k) match (~$1,000). Typical for small businesses trying to stay competitive without overspending.<br/><br/>
+            ✅ <strong>Full Package (~$16,000/yr)</strong> — Comprehensive health/dental/vision (~$10,000), 401(k) at 4% match, 15 days paid time off (worth ~$3,750 on a $65k salary), life insurance, and payroll processing fees. Standard for attracting quality candidates in competitive markets.
+          </div>
+          <div class="toggle">
+            <div class="topt"><input type="radio" name="ben" id="b0" value="0"/><label for="b0">None<small>$0 / year</small></label></div>
+            <div class="topt"><input type="radio" name="ben" id="b1" value="7500" checked/><label for="b1">Basic<small>~$7,500 / year</small></label></div>
+            <div class="topt"><input type="radio" name="ben" id="b2" value="16000"/><label for="b2">Full Package<small>~$16,000 / year</small></label></div>
+          </div>
+        </div>
+
+      </div>
+      <button class="btn" onclick="calc()">⚡ Calculate My True Hiring Cost</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results">
+      <div class="rdivider"></div>
+
+      <div class="verdict anim">
+        <div class="vemoji">💡</div>
+        <div class="vbody">
+          <strong id="vamt"></strong>
+          <p id="vdesc"></p>
+        </div>
+      </div>
+
+      <div class="pmrow anim">
+        <div class="pmc"><div class="pmv" id="pm1"></div><div class="pml">True monthly cost<br/>(W2 Employee)</div></div>
+        <div class="pmc"><div class="pmv" id="pm2"></div><div class="pml">Monthly cost<br/>(1099 Contractor)</div></div>
+        <div class="pmc"><div class="pmv" id="pm3"></div><div class="pml">True hourly cost<br/>(W2 all-in)</div></div>
+      </div>
+
+      <div class="cgrid anim">
+        <div class="ccol">
+          <div class="chead w2">👔 W2 Employee <span class="badge">You pay all of this</span></div>
+          <div class="crow"><span class="l">Base Salary</span><span class="v" id="r1"></span></div>
+          <div class="crow"><span class="l">Social Security (6.2%)</span><span class="v" id="r2"></span></div>
+          <div class="crow"><span class="l">Medicare (1.45%)</span><span class="v" id="r3"></span></div>
+          <div class="crow"><span class="l">FUTA — Federal UI</span><span class="v" id="r4"></span></div>
+          <div class="crow"><span class="l">SUTA — State UI</span><span class="v" id="r5"></span></div>
+          <div class="crow"><span class="l">Workers Comp Insurance</span><span class="v" id="r6"></span></div>
+          <div class="crow"><span class="l">Benefits Package</span><span class="v" id="r7"></span></div>
+          <div class="crow tot w2t"><span class="l">TOTAL TRUE COST</span><span class="v" id="r8"></span></div>
+        </div>
+        <div class="ccol">
+          <div class="chead c99">🧾 1099 Contractor <span class="badge">They handle taxes</span></div>
+          <div class="crow"><span class="l">Contract Rate</span><span class="v" id="c1"></span></div>
+          <div class="crow"><span class="l">Social Security</span><span class="v z">$0 — contractor pays</span></div>
+          <div class="crow"><span class="l">Medicare</span><span class="v z">$0 — contractor pays</span></div>
+          <div class="crow"><span class="l">FUTA — Federal UI</span><span class="v z">$0 — not required</span></div>
+          <div class="crow"><span class="l">SUTA — State UI</span><span class="v z">$0 — not required</span></div>
+          <div class="crow"><span class="l">Workers Comp</span><span class="v z">$0 — they carry own</span></div>
+          <div class="crow"><span class="l">Benefits</span><span class="v z">$0 — not provided</span></div>
+          <div class="crow tot c99t"><span class="l">TOTAL TRUE COST</span><span class="v" id="c2"></span></div>
+        </div>
+      </div>
+
+      <div class="barwrap anim">
+        <h3>📊 W2 Cost Breakdown — Where Does the Money Go?</h3>
+        <div id="bars"></div>
+      </div>
+
+      <div class="srow">
+        <span>Share:</span>
+        <button class="sbtn" onclick="copyLink()">📋 Copy Link</button>
+        <button class="sbtn" onclick="shareX()">𝕏 Share on X</button>
+        <button class="sbtn" onclick="window.print()">🖨 Print / PDF</button>
+      </div>
+    </div>
+
+  </div><!-- /card -->
+
+  <!-- CONTENT -->
+  <div class="cbk">
+    <h2>Why Your Employee Costs More Than Their Salary</h2>
+    <p>When most business owners post a $60,000 job listing, they budget $60,000. The real number — after mandatory payroll taxes, federal and state unemployment insurance, workers comp, and even a basic benefits package — lands closer to <strong>$78,000–$85,000</strong>. That gap of $15,000–$25,000 catches small business owners off guard every single year.</p>
+    <p>A 1099 contractor shifts most of those costs onto themselves — they pay their own self-employment taxes and carry their own insurance. The trade-off is they often charge a higher rate to compensate. This calculator gives you the true side-by-side so you can make a real financial decision, not a guess.</p>
+    <div class="srow3">
+      <div class="sc"><div class="sn">7.65%</div><p>Minimum employer payroll tax on every dollar of W2 salary (Social Security + Medicare combined)</p></div>
+      <div class="sc"><div class="sn">+$16K</div><p>Average annual cost of a full benefits package including health insurance, dental, vision and 401k match</p></div>
+      <div class="sc"><div class="sn">~32%</div><p>Typical true cost premium above base salary for a W2 employee with a standard benefits package</p></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faqwrap">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="fitem">
+      <button class="fq" onclick="faq(this)">How much more does a W2 employee cost than their salary? <span class="fchev">▾</span></button>
+      <div class="fa">A W2 employee typically costs 25%–40% more than their base salary. For a $60,000/year hire, the true annual cost — including payroll taxes (7.65%), federal and state unemployment insurance, workers comp, and a basic benefits package — usually lands between $75,000 and $85,000. This calculator breaks down every single line item so there are no surprises.</div>
+    </div>
+
+    <div class="fitem">
+      <button class="fq" onclick="faq(this)">What is FICA and who actually pays it? <span class="fchev">▾</span></button>
+      <div class="fa">FICA stands for the Federal Insurance Contributions Act and covers Social Security (6.2%) and Medicare (1.45%). Both you and your employee pay it separately — your employee's share is deducted from their paycheck, while your share is an additional cost on top of their salary that they never see. For a $65,000 salary, your employer FICA contribution alone is $4,972 per year.</div>
+    </div>
+
+    <div class="fitem">
+      <button class="fq" onclick="faq(this)">What is the difference between FUTA and SUTA? <span class="fchev">▾</span></button>
+      <div class="fa">Both are unemployment insurance taxes paid entirely by you, the employer. <strong>FUTA</strong> (Federal Unemployment Tax Act) is 6% on the first $7,000 of wages — but if you pay your state taxes on time, you get a 5.4% federal credit, reducing your effective FUTA rate to just 0.6% (max $42/employee/year). <strong>SUTA</strong> (State Unemployment Tax Act) is set by your state and varies from 1%–5% for new employers, applied to the first $7,000–$9,000 of wages. This calculator shows both.</div>
+    </div>
+
+    <div class="fitem">
+      <button class="fq" onclick="faq(this)">Can hiring a 1099 contractor save me money vs a W2 employee? <span class="fchev">▾</span></button>
+      <div class="fa">Yes — at the same base pay, a contractor costs significantly less because you skip payroll taxes, unemployment insurance, workers comp, and benefits. However, experienced contractors typically charge 20%–40% higher hourly rates to cover their own self-employment taxes (15.3%) and benefits. The key question is whether their higher rate is still less than the full W2 overhead. Use this calculator to find your exact break-even point.</div>
+    </div>
+
+    <div class="fitem">
+      <button class="fq" onclick="faq(this)">What are the penalties for misclassifying an employee as a contractor? <span class="fchev">▾</span></button>
+      <div class="fa">Employee misclassification is one of the most actively audited issues by the IRS and state labor agencies. Penalties include back payroll taxes with interest, fines ranging from $50 to $1,000 per worker per violation, and potential criminal charges for intentional misclassification. The IRS uses a behavioral control, financial control, and relationship test to determine proper worker status. Always consult a CPA or employment attorney before classifying any worker as a contractor.</div>
+    </div>
+
+    <div class="fitem">
+      <button class="fq" onclick="faq(this)">Why does workers comp vary so much by job type? <span class="fchev">▾</span></button>
+      <div class="fa">Workers compensation premiums are calculated based on risk — how likely it is that a worker in that role gets injured on the job. The National Council on Compensation Insurance (NCCI) assigns every job type a classification code and corresponding rate. An office worker has very little injury risk (rate: ~0.5%), while a construction laborer faces significant daily physical danger (rate: 10%+). Most states legally require you to carry workers comp from day one for all W2 employees.</div>
+    </div>
+
+  </div>
+</div><!-- /container -->
+
+<footer>
+  <strong>TrueCostHiring.com</strong><br/>
+  Free hiring cost calculator for US small business owners — updated for 2025 tax rates<br/>
+  All figures are estimates for educational purposes only. Consult a licensed CPA or HR professional before making hiring decisions.<br/>
+  FUTA, SUTA, and workers comp rates are based on standard new-employer rates and vary by state, industry, and claims history.<br/><br/>
+  <a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Disclaimer</a>
+</footer>
+
+<script>
+const SUTA={AL:2.70,AK:1.00,AZ:2.00,AR:3.10,CA:3.40,CO:1.70,CT:3.20,DE:1.80,FL:2.70,GA:2.70,HI:3.00,ID:1.50,IL:3.40,IN:2.50,IA:1.00,KS:2.70,KY:2.70,LA:1.60,ME:2.50,MD:2.60,MA:2.90,MI:2.70,MN:1.00,MS:1.00,MO:2.10,MT:1.00,NE:1.25,NV:2.00,NH:1.70,NJ:3.40,NM:1.00,NY:3.40,NC:1.20,ND:1.00,OH:2.70,OK:2.70,OR:2.60,PA:2.80,RI:2.40,SC:1.00,SD:1.20,TN:2.70,TX:2.70,UT:1.00,VT:1.00,VA:2.50,WA:1.00,WV:2.70,WI:2.50,WY:1.60};
+const SNAMES={AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",FL:"Florida",GA:"Georgia",HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MI:"Michigan",MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NJ:"New Jersey",NM:"New Mexico",NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",VA:"Virginia",WA:"Washington",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming"};
+
+function fmt(n){return'$'+Math.round(n).toLocaleString('en-US')}
+function sc(){return document.getElementById('state').value.split('|')[0]}
+function sr(){return SUTA[sc()]||2.70}
+function wr(){return parseFloat(document.getElementById('jobCat').value)}
+
+function pills(){
+  const sal=parseFloat(document.getElementById('salary').value)||0;
+  const code=sc(); const s=sr();
+  const sa=Math.min(sal,9000)*(s/100);
+  document.getElementById('p-suta').textContent=`${SNAMES[code]} SUTA: ${s.toFixed(2)}% on first $9,000 = ${fmt(sa)}/year`;
+  const w=wr(); const wa=sal*w;
+  document.getElementById('p-wc').textContent=`Workers Comp: ${(w*100).toFixed(1)}% × ${fmt(sal)} = ${fmt(wa)}/year`;
+}
+
+function tip(id){document.getElementById(id).classList.toggle('on')}
+
+function calc(){
+  const sal=parseFloat(document.getElementById('salary').value)||0;
+  const suta=sr(); const wc=wr();
+  const ben=parseFloat(document.querySelector('input[name="ben"]:checked').value)||0;
+  const hrs=parseFloat(document.getElementById('hours').value)||40;
+  const ss=sal*0.062, med=sal*0.0145;
+  const futa=Math.min(sal,7000)*0.006;
+  const sutaA=Math.min(sal,9000)*(suta/100);
+  const wcA=sal*wc;
+  const w2=sal+ss+med+futa+sutaA+wcA+ben;
+  const diff=w2-sal;
+
+  document.getElementById('pm1').textContent=fmt(w2/12);
+  document.getElementById('pm2').textContent=fmt(sal/12);
+  document.getElementById('pm3').textContent='$'+(w2/(hrs*52)).toFixed(2);
+
+  document.getElementById('vamt').textContent=fmt(diff)+' more per year for a W2 hire';
+  document.getElementById('vdesc').innerHTML=`At ${fmt(sal)} salary, your true W2 annual cost is <b>${fmt(w2)}</b>. The same person as a 1099 contractor costs <b>${fmt(sal)}</b> — a difference of <b>${fmt(diff)}</b> per year, or <b>${fmt(diff/12)}/month</b> in employer overhead.`;
+
+  document.getElementById('r1').textContent=fmt(sal);
+  document.getElementById('r2').textContent=fmt(ss);
+  document.getElementById('r3').textContent=fmt(med);
+  document.getElementById('r4').textContent=fmt(futa);
+  document.getElementById('r5').textContent=fmt(sutaA);
+  document.getElementById('r6').textContent=fmt(wcA);
+  document.getElementById('r7').textContent=fmt(ben);
+  document.getElementById('r8').textContent=fmt(w2);
+  document.getElementById('c1').textContent=fmt(sal);
+  document.getElementById('c2').textContent=fmt(sal);
+
+  const items=[
+    {l:'Base Salary',v:sal,c:'s'},
+    {l:'Social Security',v:ss,c:'t'},
+    {l:'Medicare',v:med,c:'t'},
+    {l:'FUTA (Fed. UI)',v:futa,c:'i'},
+    {l:'SUTA (State UI)',v:sutaA,c:'i'},
+    {l:'Workers Comp',v:wcA,c:'i'},
+    {l:'Benefits',v:ben,c:'b'}
+  ];
+  const mx=Math.max(...items.map(x=>x.v));
+  document.getElementById('bars').innerHTML=items.map(x=>`
+    <div class="brow">
+      <span class="blbl">${x.l}</span>
+      <div class="btrack"><div class="bfill ${x.c}" style="width:${mx>0?x.v/mx*100:0}%"></div></div>
+      <span class="bamt">${fmt(x.v)}</span>
+    </div>`).join('');
+
+  const r=document.getElementById('results');
+  r.style.display='block';
+  setTimeout(()=>r.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  pills();
+}
+
+function faq(btn){
+  const a=btn.nextElementSibling,o=a.classList.contains('on');
+  document.querySelectorAll('.fa.on').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.fq.on').forEach(x=>x.classList.remove('on'));
+  if(!o){a.classList.add('on');btn.classList.add('on')}
+}
+
+function copyLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Link copied!'))}
+function shareX(){const t=encodeURIComponent('Just found out my $65k employee actually costs over $83k/year 😱 Used this free calculator to see the full breakdown:');window.open(`https://twitter.com/intent/tweet?text=${t}&url=${encodeURIComponent(location.href)}`,'_blank')}
+
+window.addEventListener('DOMContentLoaded',pills);
+</script>
+</body>
+</html>
