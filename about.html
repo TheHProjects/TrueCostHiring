@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About TrueCostHiring - Why We Built This Free Employer Cost Calculator</title>
+<meta name="description" content="TrueCostHiring is a free tool built for US small business owners to calculate the true cost of hiring a W2 employee vs a 1099 contractor, including all taxes, insurance, and benefits."/>
+<link rel="canonical" href="https://truecosthiring.com/about/"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0F2952;--navy-mid:#1B4A9E;--navy-light:#3B6DC8;
+  --emerald:#2ECC71;--emerald-dk:#1DA355;--emerald-xdk:#0D7A3E;
+  --emerald-lt:#A8F0C8;--emerald-pale:#D4F9E6;--emerald-bg:#EAFBF2;
+  --amber:#F4A100;--amber-dk:#C47F00;--amber-lt:#FDDFA0;--amber-bg:#FFF8E6;
+  --bg:#F0F5FF;--bg2:#E4EBF8;--white:#FFFFFF;
+  --ink:#0B1D35;--ink2:#1E3A5F;--muted:#4A6080;--light:#8BA4C0;
+  --border:#D0DCF0;--border2:#B8CCE8;
+  --sh:0 2px 12px rgba(15,41,82,.08);--sh-lg:0 8px 40px rgba(15,41,82,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+/* HEADER */
+header{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav{max-width:1100px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:34px;height:34px;background:var(--emerald);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:18px;height:18px}
+.logo-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.02rem;color:#fff;display:block;letter-spacing:-.2px}
+.logo-name em{color:var(--emerald);font-style:normal}
+.logo-sub{font-size:.62rem;color:rgba(255,255,255,.35);display:block;margin-top:1px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-a{color:rgba(255,255,255,.5);font-size:.81rem;font-weight:500;padding:7px 12px;border-radius:7px;transition:color .18s,background .18s;white-space:nowrap}
+.nav-a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-btn{background:var(--emerald);color:var(--navy);font-family:'Bricolage Grotesque',sans-serif;font-size:.82rem;font-weight:700;padding:8px 18px;border-radius:8px;white-space:nowrap;border:none;cursor:pointer;transition:background .18s}
+.nav-btn:hover{background:var(--emerald-dk);color:#fff}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;border-radius:7px;color:rgba(255,255,255,.7)}
+.hamburger svg{width:22px;height:22px}
+@media(max-width:620px){.nav-links{display:none}.hamburger{display:flex}}
+
+/* Mobile menu */
+.mm-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
+.mm-overlay.open{display:block}
+.mm-panel{position:absolute;top:0;right:0;width:min(290px,82vw);height:100%;background:var(--white);box-shadow:-4px 0 28px rgba(0,0,0,.18);display:flex;flex-direction:column;animation:mmIn .22s ease}
+@keyframes mmIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.mm-top{display:flex;align-items:center;justify-content:space-between;padding:17px 20px;border-bottom:1px solid var(--border)}
+.mm-logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.97rem;color:var(--ink)}
+.mm-logo em{color:var(--emerald-dk);font-style:normal}
+.mm-x{width:28px;height:28px;background:var(--bg);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:.85rem;font-weight:600}
+.mm-links{display:flex;flex-direction:column;gap:3px;padding:14px 12px;flex:1}
+.mm-lnk{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:9px;font-size:.9rem;font-weight:500;color:var(--ink2);transition:background .18s}
+.mm-lnk:hover{background:var(--bg)}
+.mm-lnk svg{width:15px;height:15px;color:var(--navy-mid)}
+.mm-cta{margin:0 12px 20px;background:var(--navy);color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.9rem;padding:13px;border-radius:9px;text-align:center;display:block}
+
+/* PAGE HERO */
+.page-hero{background:var(--navy);padding:64px 28px 72px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:56px 56px}
+.page-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 100% 50%,rgba(46,204,113,.12) 0%,transparent 60%);pointer-events:none}
+.page-hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.breadcrumb{display:flex;align-items:center;gap:7px;margin-bottom:18px}
+.breadcrumb a{font-size:.76rem;color:rgba(255,255,255,.4);transition:color .18s}
+.breadcrumb a:hover{color:rgba(255,255,255,.75)}
+.breadcrumb span{font-size:.76rem;color:rgba(255,255,255,.25)}
+.breadcrumb strong{font-size:.76rem;color:rgba(255,255,255,.55)}
+.page-eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(46,204,113,.13);border:1px solid rgba(46,204,113,.28);color:var(--emerald);font-size:.72rem;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px}
+.page-hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(2rem,4.5vw,3rem);font-weight:800;color:#fff;line-height:1.12;max-width:680px;letter-spacing:-.4px;margin-bottom:16px}
+.page-hero h1 em{color:var(--emerald);font-style:normal}
+.page-hero p{color:rgba(255,255,255,.55);font-size:1rem;max-width:540px;line-height:1.72}
+
+/* MAIN CONTENT */
+.page-body{max-width:1100px;margin:0 auto;padding:64px 28px 80px;display:grid;grid-template-columns:1fr 320px;gap:52px;align-items:start}
+@media(max-width:860px){.page-body{grid-template-columns:1fr;gap:40px;padding:48px 20px 64px}}
+
+/* ARTICLE */
+.article h2{font-family:'Bricolage Grotesque',sans-serif;font-size:1.45rem;font-weight:800;color:var(--ink);margin:36px 0 12px;letter-spacing:-.2px;line-height:1.2}
+.article h2:first-child{margin-top:0}
+.article h3{font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink2);margin:24px 0 8px}
+.article p{color:var(--ink2);font-size:.97rem;line-height:1.78;margin-bottom:14px}
+.article strong{color:var(--ink)}
+.article ul,.article ol{padding-left:20px;margin-bottom:14px}
+.article li{color:var(--ink2);font-size:.95rem;line-height:1.72;margin-bottom:5px}
+
+/* Highlight box */
+.highlight{background:var(--emerald-bg);border:1.5px solid var(--emerald-pale);border-left:4px solid var(--emerald);border-radius:12px;padding:18px 22px;margin:24px 0}
+.highlight p{margin:0;font-size:.9rem;color:var(--ink2);line-height:1.65}
+.highlight p strong{color:var(--emerald-xdk)}
+
+/* Amber callout */
+.callout-amber{background:var(--amber-bg);border:1.5px solid var(--amber-lt);border-left:4px solid var(--amber);border-radius:12px;padding:18px 22px;margin:24px 0;display:flex;gap:12px;align-items:flex-start}
+.callout-amber-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+.callout-amber p{margin:0;font-size:.9rem;color:var(--ink2);line-height:1.65}
+.callout-amber p strong{color:var(--amber-dk)}
+
+/* Mission list */
+.mission-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+@media(max-width:540px){.mission-list{grid-template-columns:1fr}}
+.mission-item{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px;border-top:3px solid var(--emerald)}
+.mission-item .mi-icon{font-size:1.4rem;margin-bottom:8px}
+.mission-item h4{font-family:'Bricolage Grotesque',sans-serif;font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:5px}
+.mission-item p{font-size:.8rem;color:var(--muted);margin:0;line-height:1.55}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+.sidebar-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px;box-shadow:var(--sh)}
+.sidebar-card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:.92rem;font-weight:700;color:var(--ink);margin-bottom:14px}
+.sidebar-stat{text-align:center;padding:14px 0;border-bottom:1px solid var(--border)}
+.sidebar-stat:last-child{border-bottom:none;padding-bottom:0}
+.sidebar-stat-n{font-family:'Bricolage Grotesque',sans-serif;font-size:1.8rem;font-weight:800;color:var(--navy);line-height:1;margin-bottom:4px}
+.sidebar-stat-l{font-size:.75rem;color:var(--muted);line-height:1.4}
+.cta-card{background:var(--navy);border-radius:14px;padding:24px;text-align:center}
+.cta-card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px}
+.cta-card p{font-size:.82rem;color:rgba(255,255,255,.5);margin-bottom:18px;line-height:1.55}
+.cta-btn{display:block;background:var(--emerald);color:var(--navy);font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.9rem;padding:12px 20px;border-radius:9px;transition:background .18s}
+.cta-btn:hover{background:var(--emerald-dk);color:#fff}
+.team-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.team-item:last-child{border-bottom:none;padding-bottom:0}
+.team-avatar{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.team-avatar.green{background:var(--emerald-bg)}
+.team-avatar.blue{background:var(--bg2)}
+.team-info h4{font-family:'Bricolage Grotesque',sans-serif;font-size:.85rem;font-weight:700;color:var(--ink);margin-bottom:2px}
+.team-info p{font-size:.76rem;color:var(--muted);margin:0;line-height:1.45}
+
+/* FOOTER */
+footer{background:var(--navy);padding:24px 28px}
+.foot-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.foot-logo{font-family:'Bricolage Grotesque',sans-serif;font-size:.97rem;font-weight:700;color:#fff}
+.foot-logo em{color:var(--emerald);font-style:normal}
+.foot-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.foot-links a{color:rgba(255,255,255,.35);font-size:.75rem;transition:color .18s}
+.foot-links a:hover{color:rgba(255,255,255,.75)}
+.foot-disc{color:rgba(255,255,255,.22);font-size:.7rem;max-width:560px;line-height:1.65}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="/" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F2952" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <span class="logo-name">TrueCost<em>Hiring</em></span>
+        <span class="logo-sub">W2 vs 1099 Cost Calculator</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="/#how-it-works" class="nav-a">How It Works</a>
+      <a href="/#faq" class="nav-a">FAQ</a>
+      <a href="/about.html" class="nav-a" style="color:#fff">About</a>
+      <a href="/" class="nav-btn">Calculate Now</a>
+    </div>
+    <button class="hamburger" onclick="openMM()" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="mm-overlay" id="mm" onclick="closeMM(event)">
+  <div class="mm-panel">
+    <div class="mm-top">
+      <div class="mm-logo">TrueCost<em>Hiring</em></div>
+      <button class="mm-x" onclick="closeMM()">x</button>
+    </div>
+    <div class="mm-links">
+      <a href="/" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="12" y2="10"/></svg>
+        Calculator
+      </a>
+      <a href="/#how-it-works" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        How It Works
+      </a>
+      <a href="/#faq" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        FAQ
+      </a>
+      <a href="/about.html" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        About Us
+      </a>
+    </div>
+    <a href="/" class="mm-cta" onclick="closeMM()">Calculate Now - Free</a>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <strong>About Us</strong>
+    </div>
+    <div class="page-eyebrow">Our Story</div>
+    <h1>Built for Small Business Owners Who Deserve <em>Real Numbers</em></h1>
+    <p>TrueCostHiring exists because too many employers make their most important financial decision - hiring - based on incomplete information. We built the tool we wished existed.</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<div class="page-body">
+  <article class="article">
+
+    <h2>Why We Built This</h2>
+    <p>It started with a common scenario: a small business owner posts a $55,000 job offer, thinks they are budgeting $55,000, and then gets hit with an unexpected tax bill at year end. The real cost was closer to $70,000. Nobody told them about FICA, FUTA, SUTA, workers compensation, or benefits overhead.</p>
+    <p>We kept seeing the same story repeated across Reddit threads, small business forums, and accounting communities. Employers were making six-figure hiring decisions based on a single number - the salary - while missing 25% to 40% of the true cost sitting right below the surface.</p>
+
+    <div class="highlight">
+      <p><strong>The mission is simple:</strong> Give every small business owner in America a free, accurate, no-jargon tool that shows exactly what a hire will really cost before they sign the offer letter.</p>
+    </div>
+
+    <h2>What TrueCostHiring Does</h2>
+    <p>TrueCostHiring is a free web-based calculator that computes the true annual cost of hiring a W2 employee versus engaging a 1099 independent contractor. It factors in every mandatory employer cost that does not appear on a job posting but absolutely appears on your tax bill:</p>
+    <ul>
+      <li>FICA payroll taxes (Social Security 6.2% + Medicare 1.45%) paid by the employer</li>
+      <li>FUTA federal unemployment insurance (effective 0.6% on first $7,000 of wages)</li>
+      <li>SUTA state unemployment insurance, with real rates for all 50 US states built in</li>
+      <li>Workers compensation insurance, tiered by job risk category</li>
+      <li>Benefits package costs from zero to full coverage</li>
+    </ul>
+    <p>The result is a side-by-side comparison showing what a W2 employee truly costs versus the same person engaged as a 1099 contractor at the same rate - so you can make an informed financial decision, not a guess.</p>
+
+    <h2>Who This Is For</h2>
+    <div class="mission-list">
+      <div class="mission-item">
+        <div class="mi-icon">🏢</div>
+        <h4>Small Business Owners</h4>
+        <p>Making their first hire or evaluating whether to bring on a contractor versus a full-time employee.</p>
+      </div>
+      <div class="mission-item">
+        <div class="mi-icon">📊</div>
+        <h4>Startup Founders</h4>
+        <p>Modeling headcount costs before a funding round or planning a team expansion on a budget.</p>
+      </div>
+      <div class="mission-item">
+        <div class="mi-icon">🤝</div>
+        <h4>HR Managers</h4>
+        <p>Presenting accurate all-in compensation costs to finance teams and executive leadership.</p>
+      </div>
+      <div class="mission-item">
+        <div class="mi-icon">💼</div>
+        <h4>Freelancers and Contractors</h4>
+        <p>Understanding why their rates are higher than a salaried employee and communicating that value to clients.</p>
+      </div>
+    </div>
+
+    <h2>Our Commitment to Accuracy</h2>
+    <p>All tax rates in TrueCostHiring are updated for the 2025 tax year and sourced from IRS publications and state workforce agency rate tables. We use the effective FUTA rate of 0.6% (reflecting the standard SUTA credit), standard new-employer SUTA rates for each of the 50 US states, and NCCI workers compensation classification tiers.</p>
+
+    <div class="callout-amber">
+      <div class="callout-amber-icon">⚠️</div>
+      <p><strong>Important disclaimer:</strong> TrueCostHiring is an educational tool, not professional tax or legal advice. Results are estimates based on standard new-employer rates. Your actual rates may vary based on your claims history, state, and industry. Always consult a licensed CPA or HR professional before making hiring decisions.</p>
+    </div>
+
+    <h2>Always Free. No Ads from Advertisers. No Paywalls.</h2>
+    <p>TrueCostHiring is and will always be free to use. There is no account required, no email signup, and no premium tier. The calculator runs entirely in your browser - no data you enter is ever sent to or stored on any server.</p>
+    <p>We believe that access to accurate financial information should not be gated behind a subscription. Small businesses are the backbone of the US economy, and they deserve the same quality of tools that enterprise HR departments have had for years.</p>
+
+    <h2>Contact and Feedback</h2>
+    <p>Have a suggestion, found a rate that needs updating, or want to report a bug? We read every message. Reach out at <strong>hello@truecosthiring.com</strong> and we will respond within 2 business days.</p>
+    <p>If you find TrueCostHiring useful, the best thing you can do is share it with another small business owner who is about to make a hiring decision.</p>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h3>By the Numbers</h3>
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-n">50</div>
+        <div class="sidebar-stat-l">US states with real SUTA rates built in</div>
+      </div>
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-n">7</div>
+        <div class="sidebar-stat-l">Separate cost components calculated per hire</div>
+      </div>
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-n">2025</div>
+        <div class="sidebar-stat-l">Tax year rates - updated annually</div>
+      </div>
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-n">$0</div>
+        <div class="sidebar-stat-l">Cost to use - free, always</div>
+      </div>
+    </div>
+
+    <div class="cta-card">
+      <h3>Try the Calculator</h3>
+      <p>See the true cost of your next hire in under 60 seconds. No signup needed.</p>
+      <a href="/" class="cta-btn">Run the Numbers</a>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Who Built This</h3>
+      <div class="team-item">
+        <div class="team-avatar green">👨‍💻</div>
+        <div class="team-info">
+          <h4>Product and Development</h4>
+          <p>Built by a team passionate about giving small business owners access to clear, honest financial tools.</p>
+        </div>
+      </div>
+      <div class="team-item">
+        <div class="team-avatar blue">📋</div>
+        <div class="team-info">
+          <h4>Tax Rate Research</h4>
+          <p>Rates sourced directly from IRS publications and all 50 state workforce agency websites and verified annually.</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">TrueCost<em>Hiring</em>.com</div>
+    <div class="foot-links">
+      <a href="/">Calculator</a>
+      <a href="/#how-it-works">How It Works</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/about.html">About</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Disclaimer</a>
+    </div>
+    <p class="foot-disc">Tax rates are estimates for educational purposes only. Consult a licensed CPA or HR professional before making hiring decisions.</p>
+  </div>
+</footer>
+
+<script>
+function openMM(){document.getElementById('mm').classList.add('open');document.body.style.overflow='hidden'}
+function closeMM(e){if(!e||e.target===document.getElementById('mm')){document.getElementById('mm').classList.remove('open');document.body.style.overflow=''}}
+</script>
+</body>
+</html>
