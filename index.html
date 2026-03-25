@@ -3,177 +3,888 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Blog - Hiring Cost Guides, Tax Tips and W2 vs 1099 Resources | TrueCostHiring</title>
-<meta name="description" content="Free guides for US small business owners on employee costs, payroll taxes, W2 vs 1099 decisions, FICA, FUTA, SUTA, workers comp, and more. Updated for 2025."/>
-<link rel="canonical" href="https://truecosthiring.com/blog/"/>
+<title>W2 Employee vs 1099 Contractor True Cost Calculator 2025 | TrueCostHiring</title>
+<meta name="description" content="Free 2025 calculator: Find the true cost of hiring a W2 employee vs a 1099 contractor. Includes FICA payroll taxes, FUTA, all 50 state SUTA rates, workers comp, and benefits. Built for US small business owners."/>
+<meta name="keywords" content="contractor vs employee cost calculator, true cost of hiring an employee, 1099 vs W2 calculator, employer payroll tax calculator, FICA FUTA SUTA, small business hiring cost 2025"/>
+<link rel="canonical" href="https://truecosthiring.com/contractor-vs-employee-calculator/"/>
+<meta property="og:title" content="W2 vs 1099 True Cost Calculator 2025 - What Does an Employee Really Cost?"/>
+<meta property="og:description" content="Most employers underestimate employee costs by 25-40%. Calculate your real number including all taxes, insurance, and benefits for your state."/>
+<meta property="og:type" content="website"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"W2 vs 1099 True Cost Calculator","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much more does a W2 employee cost than their salary?","acceptedAnswer":{"@type":"Answer","text":"A W2 employee typically costs 25-40% more than their base salary once you add employer payroll taxes, unemployment insurance, workers comp, and benefits."}},{"@type":"Question","name":"What is SUTA unemployment tax?","acceptedAnswer":{"@type":"Answer","text":"SUTA is a state unemployment tax paid entirely by the employer, ranging from 1% to 3.4% for new employers."}},{"@type":"Question","name":"Do I pay workers comp for 1099 contractors?","acceptedAnswer":{"@type":"Answer","text":"No. Workers comp is only required for W2 employees. Contractors carry their own policy and your cost is $0."}}]}</script>
 <style>
-:root{
-  --navy:#0F2952;--navy-mid:#1B4A9E;--navy-light:#3B6DC8;
-  --emerald:#2ECC71;--emerald-dk:#1DA355;--emerald-xdk:#0D7A3E;
-  --emerald-lt:#A8F0C8;--emerald-pale:#D4F9E6;--emerald-bg:#EAFBF2;
-  --amber:#F4A100;--amber-dk:#C47F00;--amber-lt:#FDDFA0;--amber-bg:#FFF8E6;
-  --bg:#F0F5FF;--bg2:#E4EBF8;--white:#FFFFFF;
-  --ink:#0B1D35;--ink2:#1E3A5F;--muted:#4A6080;--light:#8BA4C0;
-  --border:#D0DCF0;--border2:#B8CCE8;
-  --sh:0 2px 12px rgba(15,41,82,.08);--sh-lg:0 8px 40px rgba(15,41,82,.12);
+/* =====================================================================
+   PRINT
+   ===================================================================== */
+@media print {
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  header,.hero,.hiw,.content-sec,.faq-sec,footer,.share-row,.edit-row,.modal-bg,.form-body{display:none!important}
+  body{background:#fff!important}
+  .calc-section{padding:0!important;background:#fff!important}
+  .calc-card{box-shadow:none!important;border:1px solid #ddd!important}
+  #results{display:block!important}
+  .print-hdr{display:flex!important}
 }
+.print-hdr{display:none;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:2px solid #e2e8f0;margin-bottom:4px}
+.print-hdr-logo{font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;color:#0f2952}
+.print-hdr-logo span{color:#2ECC71}
+.print-hdr-date{font-size:.73rem;color:#64748b}
+
+/* =====================================================================
+   DESIGN TOKENS
+   ===================================================================== */
+:root{
+  /* Brand Navy */
+  --navy:        #0F2952;
+  --navy-mid:    #1B4A9E;
+  --navy-light:  #3B6DC8;
+
+  /* Emerald Green - positive / 1099 benefits / savings */
+  --emerald:     #2ECC71;
+  --emerald-dk:  #1DA355;
+  --emerald-xdk: #0D7A3E;
+  --emerald-lt:  #A8F0C8;
+  --emerald-pale:#D4F9E6;
+  --emerald-bg:  #EAFBF2;
+
+  /* Amber Orange - caution / W2 costs / warnings */
+  --amber:       #F4A100;
+  --amber-dk:    #C47F00;
+  --amber-lt:    #FDDFA0;
+  --amber-bg:    #FFF8E6;
+
+  /* Supporting greens */
+  --green2:      #16A34A;  /* deeper accent green */
+  --green3:      #4ADE80;  /* lighter pop green */
+
+  /* Page */
+  --bg:          #F0F5FF;
+  --bg2:         #E4EBF8;
+  --white:       #FFFFFF;
+  --ink:         #0B1D35;
+  --ink2:        #1E3A5F;
+  --muted:       #4A6080;
+  --light:       #8BA4C0;
+  --border:      #D0DCF0;
+  --border2:     #B8CCE8;
+
+  /* W2 column - amber/orange tones = caution */
+  --w2-hdr:      #7C3500;
+  --w2-bg:       #FFF8EE;
+  --w2-border:   #F4C878;
+
+  /* 1099 column - emerald tones = positive */
+  --c99-hdr:     #0D5C30;
+  --c99-bg:      #EAFBF2;
+  --c99-border:  #7BE5AA;
+
+  --sh:          0 2px 12px rgba(15,41,82,.08),0 1px 3px rgba(15,41,82,.05);
+  --sh-lg:       0 8px 40px rgba(15,41,82,.12),0 2px 8px rgba(15,41,82,.06);
+}
+
+/* =====================================================================
+   BASE
+   ===================================================================== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
 a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
 
-/* HEADER */
-header{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.06)}
-.nav{max-width:1100px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+/* =====================================================================
+   HEADER
+   ===================================================================== */
+header{
+  background:var(--navy);
+  position:sticky;top:0;z-index:200;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav{
+  max-width:1100px;margin:0 auto;
+  padding:0 28px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
 .logo{display:flex;align-items:center;gap:10px}
-.logo-mark{width:34px;height:34px;background:var(--emerald);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark{
+  width:34px;height:34px;
+  background:var(--emerald);
+  border-radius:9px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
 .logo-mark svg{width:18px;height:18px}
-.logo-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.02rem;color:#fff;display:block;letter-spacing:-.2px}
+.logo-name{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:700;font-size:1.02rem;color:#fff;
+  display:block;letter-spacing:-.2px;
+}
 .logo-name em{color:var(--emerald);font-style:normal}
-.logo-sub{font-size:.62rem;color:rgba(255,255,255,.35);display:block;margin-top:1px}
+.logo-sub{font-size:.62rem;color:rgba(255,255,255,.35);letter-spacing:.2px;display:block;margin-top:1px}
 .nav-links{display:flex;align-items:center;gap:4px}
-.nav-a{color:rgba(255,255,255,.5);font-size:.81rem;font-weight:500;padding:7px 12px;border-radius:7px;transition:color .18s,background .18s;white-space:nowrap}
+.nav-a{
+  color:rgba(255,255,255,.5);font-size:.81rem;font-weight:500;
+  padding:7px 12px;border-radius:7px;
+  transition:color .18s,background .18s;white-space:nowrap;
+}
 .nav-a:hover{color:#fff;background:rgba(255,255,255,.07)}
-.nav-a.active{color:#fff}
-.nav-btn{background:var(--emerald);color:var(--navy);font-family:'Bricolage Grotesque',sans-serif;font-size:.82rem;font-weight:700;padding:8px 18px;border-radius:8px;white-space:nowrap;border:none;cursor:pointer;transition:background .18s}
+.nav-btn{
+  background:var(--emerald);color:var(--navy);
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:.82rem;font-weight:700;
+  padding:8px 18px;border-radius:8px;
+  white-space:nowrap;border:none;cursor:pointer;
+  transition:background .18s;
+}
 .nav-btn:hover{background:var(--emerald-dk);color:#fff}
-.hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;border-radius:7px;color:rgba(255,255,255,.7)}
+.hamburger{
+  display:none;background:none;border:none;
+  cursor:pointer;padding:6px;border-radius:7px;
+  color:rgba(255,255,255,.7);
+}
 .hamburger svg{width:22px;height:22px}
 @media(max-width:620px){.nav-links{display:none}.hamburger{display:flex}}
 
-/* MOBILE MENU */
-.mm-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
+/* Mobile menu */
+.mm-overlay{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(4px);
+}
 .mm-overlay.open{display:block}
-.mm-panel{position:absolute;top:0;right:0;width:min(290px,82vw);height:100%;background:var(--white);box-shadow:-4px 0 28px rgba(0,0,0,.18);display:flex;flex-direction:column;animation:mmIn .22s ease}
+.mm-panel{
+  position:absolute;top:0;right:0;
+  width:min(290px,82vw);height:100%;
+  background:var(--white);
+  box-shadow:-4px 0 28px rgba(0,0,0,.18);
+  display:flex;flex-direction:column;
+  animation:mmIn .22s ease;
+}
 @keyframes mmIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
-.mm-top{display:flex;align-items:center;justify-content:space-between;padding:17px 20px;border-bottom:1px solid var(--border)}
+.mm-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:17px 20px;border-bottom:1px solid var(--border);
+}
 .mm-logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.97rem;color:var(--ink)}
 .mm-logo em{color:var(--emerald-dk);font-style:normal}
-.mm-x{width:28px;height:28px;background:var(--bg);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:.85rem;font-weight:600}
+.mm-x{
+  width:28px;height:28px;background:var(--bg);border:none;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--muted);font-size:.85rem;font-weight:600;
+}
 .mm-links{display:flex;flex-direction:column;gap:3px;padding:14px 12px;flex:1}
-.mm-lnk{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:9px;font-size:.9rem;font-weight:500;color:var(--ink2);transition:background .18s}
+.mm-lnk{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;border-radius:9px;
+  font-size:.9rem;font-weight:500;color:var(--ink2);
+  transition:background .18s;
+}
 .mm-lnk:hover{background:var(--bg)}
 .mm-lnk svg{width:15px;height:15px;color:var(--navy-mid)}
-.mm-cta{margin:0 12px 20px;background:var(--navy);color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.9rem;padding:13px;border-radius:9px;text-align:center;display:block}
+.mm-cta{
+  margin:0 12px 20px;background:var(--navy);color:#fff;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:700;font-size:.9rem;
+  padding:13px;border-radius:9px;text-align:center;display:block;
+}
 
-/* PAGE HERO */
-.page-hero{background:var(--navy);padding:60px 28px 72px;position:relative;overflow:hidden}
-.page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:56px 56px}
-.page-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 100% 40%,rgba(46,204,113,.12) 0%,transparent 60%);pointer-events:none}
-.page-hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2}
-.breadcrumb{display:flex;align-items:center;gap:7px;margin-bottom:18px}
-.breadcrumb a{font-size:.75rem;color:rgba(255,255,255,.4);transition:color .18s}
-.breadcrumb a:hover{color:rgba(255,255,255,.75)}
-.breadcrumb span{font-size:.75rem;color:rgba(255,255,255,.22)}
-.breadcrumb strong{font-size:.75rem;color:rgba(255,255,255,.52)}
-.page-eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(46,204,113,.13);border:1px solid rgba(46,204,113,.28);color:var(--emerald);font-size:.72rem;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px}
-.page-hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.9rem,4.2vw,2.9rem);font-weight:800;color:#fff;line-height:1.12;max-width:700px;letter-spacing:-.4px;margin-bottom:14px}
-.page-hero h1 em{color:var(--emerald);font-style:normal}
-.page-hero-sub{color:rgba(255,255,255,.52);font-size:.97rem;max-width:580px;line-height:1.72}
+/* =====================================================================
+   HERO
+   ===================================================================== */
+.hero{
+  background:var(--navy);
+  position:relative;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.hero-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 65% 80% at 100% 40%,rgba(46,204,113,.13) 0%,transparent 60%),
+    radial-gradient(ellipse 55% 60% at 10% 100%,rgba(27,74,158,.22) 0%,transparent 55%);
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;
+  padding:88px 28px 0;
+  display:grid;
+  grid-template-columns:1fr 320px;
+  align-items:end;
+  gap:40px;
+  position:relative;z-index:2;
+}
+@media(max-width:860px){
+  .hero-inner{
+    grid-template-columns:1fr;
+    padding:64px 24px 0;
+    gap:0;
+  }
+}
+.hero-left{padding-bottom:80px}
+@media(max-width:860px){.hero-left{padding-bottom:44px}}
 
-/* FILTER TABS */
-.filter-bar{background:var(--white);border-bottom:1px solid var(--border)}
-.filter-inner{max-width:1100px;margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.filter-inner::-webkit-scrollbar{display:none}
-.filter-tab{padding:14px 16px;font-size:.81rem;font-weight:600;color:var(--muted);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:color .18s,border-color .18s;flex-shrink:0}
-.filter-tab:hover{color:var(--ink)}
-.filter-tab.active{color:var(--navy);border-bottom-color:var(--emerald)}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(46,204,113,.13);
+  border:1px solid rgba(46,204,113,.28);
+  color:var(--emerald);
+  font-size:.72rem;font-weight:700;
+  letter-spacing:1.1px;text-transform:uppercase;
+  padding:5px 14px;border-radius:20px;margin-bottom:22px;
+}
+.hero-eyebrow-dot{
+  width:6px;height:6px;
+  background:var(--emerald);border-radius:50%;flex-shrink:0;
+  animation:hpulse 2.5s infinite;
+}
+@keyframes hpulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-/* MAIN LAYOUT */
-.blog-wrap{max-width:1100px;margin:0 auto;padding:52px 28px 80px;display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:start}
-@media(max-width:860px){.blog-wrap{grid-template-columns:1fr;gap:40px;padding:36px 20px 64px}}
+.hero h1{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(2.1rem,4.8vw,3.5rem);
+  font-weight:800;color:#fff;
+  line-height:1.1;
+  max-width:660px;
+  margin-bottom:20px;
+  letter-spacing:-.5px;
+}
+.hero h1 em{color:var(--emerald);font-style:normal}
 
-/* FEATURED POST */
-.featured-post{
+.hero-sub{
+  color:rgba(255,255,255,.58);
+  font-size:1rem;max-width:520px;
+  margin-bottom:36px;line-height:1.74;
+}
+
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--emerald);color:var(--navy);
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;font-size:.97rem;
+  padding:14px 28px;border-radius:10px;
+  box-shadow:0 4px 22px rgba(46,204,113,.38);
+  transition:background .2s,transform .15s;
+  white-space:nowrap;
+}
+.hero-cta:hover{background:var(--emerald-dk);color:#fff;transform:translateY(-1px)}
+.hero-cta svg{width:15px;height:15px;flex-shrink:0}
+.hero-note{color:rgba(255,255,255,.32);font-size:.77rem}
+
+/* Right example card */
+.hero-right{padding-bottom:56px}
+@media(max-width:860px){.hero-right{display:none}}
+.hcard{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:24px 22px;
+  backdrop-filter:blur(8px);
+}
+.hcard-title{
+  font-size:.7rem;font-weight:600;
+  color:rgba(255,255,255,.4);
+  text-transform:uppercase;letter-spacing:.8px;
+  margin-bottom:14px;
+}
+.hcard-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07);
+}
+.hcard-row:last-child{border-bottom:none;padding-top:13px;margin-top:3px;border-top:1px solid rgba(255,255,255,.12)}
+.hcard-lbl{font-size:.8rem;color:rgba(255,255,255,.5)}
+.hcard-val{font-family:'Bricolage Grotesque',sans-serif;font-size:.95rem;font-weight:700;color:#fff}
+.hcard-val.amber{color:var(--amber)}
+.hcard-val.emerald{color:var(--emerald)}
+
+/* Stats strip */
+.hero-stats{
+  background:rgba(0,0,0,.2);
+  border-top:1px solid rgba(255,255,255,.07);
+  position:relative;z-index:2;
+}
+.hero-stats-inner{
+  max-width:1100px;margin:0 auto;
+  padding:0 28px;
+  display:flex;flex-wrap:wrap;
+}
+.hstat{
+  flex:1;min-width:140px;
+  padding:22px 20px;
+  border-right:1px solid rgba(255,255,255,.07);
+  text-align:left;
+}
+.hstat:last-child{border-right:none}
+.hstat-n{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.75rem;font-weight:800;
+  color:#fff;line-height:1;margin-bottom:5px;
+}
+.hstat-n b{color:var(--emerald)}
+.hstat-l{font-size:.72rem;color:rgba(255,255,255,.38);line-height:1.45}
+@media(max-width:580px){
+  .hstat{min-width:50%;padding:18px 16px}
+  .hstat:nth-child(2){border-right:none}
+  .hstat:nth-child(3){border-top:1px solid rgba(255,255,255,.07)}
+  .hstat:nth-child(4){border-top:1px solid rgba(255,255,255,.07);border-right:none}
+  .hero-stats-inner{padding:0 16px}
+}
+
+/* =====================================================================
+   CALC SECTION
+   ===================================================================== */
+.calc-section{padding:56px 20px 80px;background:var(--bg)}
+.calc-wrap{max-width:900px;margin:0 auto}
+.calc-card{
+  background:var(--white);
+  border-radius:18px;
+  border:1px solid var(--border);
+  box-shadow:var(--sh-lg);
+  overflow:hidden;
+}
+
+/* Card header */
+.card-hdr{
+  background:linear-gradient(120deg,var(--navy) 0%,#1a3a7a 100%);
+  padding:24px 32px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.card-htitle{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.12rem;font-weight:700;color:#fff;margin-bottom:3px;
+}
+.card-hsub{font-size:.78rem;color:rgba(255,255,255,.42)}
+.card-badge{
+  background:rgba(46,204,113,.15);
+  border:1px solid rgba(46,204,113,.28);
+  color:var(--emerald);
+  font-size:.7rem;font-weight:600;
+  padding:5px 13px;border-radius:20px;
+  white-space:nowrap;flex-shrink:0;
+}
+@media(max-width:480px){.card-hdr{padding:20px}}
+
+/* =====================================================================
+   FORM
+   ===================================================================== */
+.form-body{padding:30px 32px 34px}
+@media(max-width:600px){.form-body{padding:22px 20px}}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:580px){.form-grid{grid-template-columns:1fr}}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg.full{grid-column:1/-1}
+
+/* Labels */
+.flabel{
+  display:flex;align-items:center;gap:5px;
+  font-size:.83rem;font-weight:600;color:var(--ink2);
+}
+.hbtn{
+  width:15px;height:15px;
+  background:var(--bg2);color:var(--light);
+  border-radius:50%;font-size:.6rem;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;border:1px solid var(--border2);
+  flex-shrink:0;transition:background .18s,color .18s;line-height:1;
+}
+.hbtn:hover{background:var(--navy-mid);color:#fff;border-color:var(--navy-mid)}
+
+/* Tooltip */
+.tip{
+  display:none;
+  background:var(--ink);color:#dde8f5;
+  font-size:.79rem;line-height:1.64;
+  padding:13px 15px;border-radius:9px;margin-top:1px;
+  border-left:3px solid var(--emerald);
+}
+.tip.on{display:block;animation:tfade .15s ease}
+@keyframes tfade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+.tip strong{color:var(--emerald)}
+.tip ul{padding-left:15px;margin-top:7px}
+.tip li{margin-bottom:3px}
+
+/* Live pill */
+.lpill{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--emerald-bg);color:var(--emerald-xdk);
+  font-size:.72rem;font-weight:600;
+  padding:3px 10px;border-radius:20px;
+  margin-top:4px;width:fit-content;
+  border:1px solid var(--emerald-pale);
+}
+.ldot{
+  width:5px;height:5px;
+  background:var(--emerald);border-radius:50%;flex-shrink:0;
+  animation:lpulse 2.2s infinite;
+}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* Inputs */
+input[type=number],select{
+  width:100%;padding:11px 13px;
+  border:1.5px solid var(--border);border-radius:9px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.93rem;
+  background:var(--bg);color:var(--ink);
+  transition:border-color .18s,box-shadow .18s,background .18s;
+  outline:none;appearance:none;-webkit-appearance:none;
+}
+input[type=number]:focus,select:focus{
+  border-color:var(--navy-mid);
+  box-shadow:0 0 0 3px rgba(27,74,158,.1);
+  background:var(--white);
+}
+input.dim{opacity:.32;pointer-events:none}
+.iw{position:relative}
+.ipfx{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  color:var(--muted);font-weight:600;font-size:.89rem;pointer-events:none;
+}
+.iw input{padding-left:24px}
+
+/* Salary OR divider */
+.sal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:440px){.sal-grid{grid-template-columns:1fr}}
+.or-row{display:flex;align-items:center;gap:10px;margin:13px 0 9px}
+.or-line{flex:1;height:1px;background:var(--border)}
+.or-badge{
+  font-size:.71rem;font-weight:700;color:var(--muted);
+  letter-spacing:.8px;background:var(--white);
+  padding:4px 12px;border:1.5px solid var(--border2);
+  border-radius:20px;white-space:nowrap;
+}
+
+/* Benefits toggle */
+.btog{
+  display:flex;border:1.5px solid var(--border);
+  border-radius:10px;overflow:hidden;background:var(--bg);
+}
+.bopt{flex:1;min-width:0}
+.bopt input{display:none}
+.bopt label{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:11px 6px;cursor:pointer;
+  border-right:1.5px solid var(--border);
+  transition:all .18s;line-height:1.3;
+}
+.bopt:last-child label{border-right:none}
+.bopt label .bt{font-size:.83rem;font-weight:600;color:var(--muted);white-space:nowrap}
+.bopt label .bs{font-size:.7rem;color:var(--light);margin-top:2px;white-space:nowrap}
+.bopt input:checked + label{background:var(--navy)}
+.bopt input:checked + label .bt{color:#fff}
+.bopt input:checked + label .bs{color:rgba(255,255,255,.5)}
+@media(max-width:400px){
+  .bopt label .bt{font-size:.76rem}
+  .bopt label .bs{font-size:.65rem}
+  .bopt label{padding:10px 4px}
+}
+
+/* Submit button */
+.calbtn{
+  width:100%;padding:16px;
+  background:var(--navy);color:#fff;
+  border:none;border-radius:10px;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.02rem;font-weight:700;
+  cursor:pointer;margin-top:24px;
+  box-shadow:0 4px 16px rgba(15,41,82,.26);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background .2s,transform .1s;
+}
+.calbtn:hover{background:var(--navy-mid)}
+.calbtn:active{transform:scale(.99)}
+
+/* =====================================================================
+   RESULTS
+   ===================================================================== */
+.res-sep{
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--emerald-pale),var(--emerald),var(--emerald-pale),transparent);
+  margin:0;
+}
+#results{display:none;padding:30px 32px 34px}
+@media(max-width:600px){#results{padding:22px 20px}}
+
+/* Input summary */
+.isummary{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:10px;padding:13px 18px;margin-bottom:22px;
+  display:flex;flex-wrap:wrap;gap:16px 26px;
+}
+.isum-f{display:flex;flex-direction:column;gap:2px}
+.isum-l{font-size:.64rem;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.5px}
+.isum-v{font-size:.88rem;font-weight:600;color:var(--ink)}
+
+/* Verdict */
+.verdict{
+  background:var(--emerald-bg);
+  border:1.5px solid var(--emerald-pale);
+  border-left:4px solid var(--emerald);
+  border-radius:12px;
+  padding:20px 22px;margin-bottom:22px;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.vicon{
+  width:44px;height:44px;min-width:44px;
+  background:var(--emerald-pale);border-radius:11px;
+  display:flex;align-items:center;justify-content:center;font-size:1.25rem;
+}
+.vbody strong{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.3rem;font-weight:800;
+  color:var(--emerald-xdk);
+  display:block;line-height:1.2;margin-bottom:5px;
+}
+.vbody p{font-size:.86rem;color:var(--ink2);line-height:1.6}
+.vbody p b{color:var(--emerald-xdk);font-weight:700}
+
+/* Quick stats */
+.qs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+@media(max-width:480px){.qs{grid-template-columns:1fr 1fr}}
+.qsc{
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:11px;padding:14px;text-align:center;
+}
+.qsc:first-child{border-top:3px solid var(--navy-mid)}
+.qsc:nth-child(2){border-top:3px solid var(--emerald)}
+.qsc:last-child{border-top:3px solid var(--amber)}
+.qsc-v{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.3rem;font-weight:800;color:var(--ink);
+  line-height:1;margin-bottom:4px;
+}
+.qsc-l{font-size:.7rem;color:var(--muted);line-height:1.35}
+
+/* Comparison grid */
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+@media(max-width:460px){.cg{grid-template-columns:1fr}}
+
+.cc{border-radius:12px;overflow:hidden}
+.cc.w2{border:1.5px solid var(--w2-border)}
+.cc.c99{border:1.5px solid var(--c99-border)}
+.ch{padding:14px 17px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cc.w2 .ch{background:var(--w2-hdr)}
+.cc.c99 .ch{background:var(--c99-hdr)}
+.ch-name{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:.9rem;font-weight:700;color:#fff;
+}
+.ch-badge{
+  margin-left:auto;font-size:.67rem;font-weight:600;
+  padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;
+}
+.cc.w2 .ch-badge{background:rgba(244,161,0,.22);color:#FFD580}
+.cc.c99 .ch-badge{background:rgba(46,204,113,.22);color:var(--emerald)}
+
+.cr{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 17px;font-size:.83rem;
+  border-top:1px solid var(--border);
+}
+.cc.w2 .cr{background:var(--w2-bg)}
+.cc.c99 .cr{background:var(--c99-bg)}
+.cr .cl{color:var(--muted)}
+.cr .cv{font-weight:600;color:var(--ink)}
+.cr .cv.z{color:#c8d8e8;font-weight:400;font-size:.77rem}
+
+.cr.ctot{border-top:1.5px solid;padding:13px 17px}
+.cc.w2 .cr.ctot{border-top-color:var(--w2-border);background:#FFF3E0}
+.cc.c99 .cr.ctot{border-top-color:var(--c99-border);background:var(--emerald-bg)}
+.cr.ctot .cl{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:700;font-size:.81rem;color:var(--ink2);
+}
+.cr.ctot .cv{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.1rem;font-weight:800;
+}
+.cc.w2 .cr.ctot .cv{color:var(--amber-dk)}
+.cc.c99 .cr.ctot .cv{color:var(--emerald-xdk)}
+
+/* Bar chart */
+.barsec{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:12px;padding:22px;margin-bottom:22px;
+}
+.barsec h3{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:.92rem;font-weight:700;color:var(--ink2);margin-bottom:18px;
+}
+.brow{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.blbl{width:138px;flex-shrink:0;font-size:.8rem;color:var(--ink2);font-weight:500}
+.btr{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.btrack{flex:1;height:10px;background:var(--border);border-radius:5px;overflow:hidden;min-width:0}
+.bfill{height:100%;border-radius:5px;transition:width .75s cubic-bezier(.4,0,.2,1)}
+.bfill.s{background:var(--navy)}
+.bfill.t{background:var(--navy-mid)}
+.bfill.i{background:var(--amber)}
+.bfill.b{background:var(--emerald-dk)}
+.bamt{font-size:.8rem;font-weight:600;color:var(--ink);min-width:64px;text-align:right;flex-shrink:0}
+
+@media(max-width:520px){
+  .brow{flex-wrap:wrap;gap:4px;margin-bottom:13px;padding-bottom:11px;border-bottom:1px dashed var(--border)}
+  .brow:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+  .blbl{width:100%}
+  .btr{width:100%}
+}
+
+/* Share row */
+.share-row{
+  display:flex;align-items:center;gap:9px;
+  padding-top:18px;border-top:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.share-lbl{font-size:.78rem;color:var(--muted);font-weight:500}
+.sbtn{
+  display:flex;align-items:center;gap:5px;
+  padding:8px 14px;border-radius:8px;
+  border:1.5px solid var(--border);background:var(--white);
+  font-size:.8rem;font-weight:600;cursor:pointer;
+  color:var(--ink2);transition:all .18s;white-space:nowrap;
+}
+.sbtn:hover{border-color:var(--emerald);color:var(--emerald-xdk);background:var(--emerald-bg)}
+.sbtn.primary{background:var(--emerald);color:var(--navy);border-color:var(--emerald)}
+.sbtn.primary:hover{background:var(--emerald-dk);color:#fff}
+.edit-row{margin-top:13px}
+.editbtn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:7px 14px;border-radius:8px;
+  border:1.5px solid var(--border);background:var(--white);
+  font-size:.78rem;font-weight:500;cursor:pointer;
+  color:var(--muted);transition:all .18s;
+}
+.editbtn:hover{color:var(--ink);border-color:var(--border2)}
+
+/* =====================================================================
+   SHARE MODAL
+   ===================================================================== */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(0,0,0,.55);
+  z-index:400;display:flex;align-items:center;justify-content:center;
+  padding:20px;backdrop-filter:blur(6px);
+}
+.modal{
+  background:var(--white);border-radius:18px;
+  max-width:460px;width:100%;
+  box-shadow:0 24px 64px rgba(0,0,0,.28);
+  overflow:hidden;animation:mIn .2s ease;
+}
+@keyframes mIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.mhd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:17px 22px;border-bottom:1px solid var(--border);
+}
+.mhd h3{font-family:'Bricolage Grotesque',sans-serif;font-size:.97rem;font-weight:700;color:var(--ink)}
+.mx{
+  width:28px;height:28px;background:var(--bg);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;border:none;color:var(--muted);font-size:.82rem;font-weight:600;
+  transition:background .18s;
+}
+.mx:hover{background:var(--border);color:var(--ink)}
+.ms1{padding:18px 22px}
+.ms1.hide{display:none}
+.mopts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}
+.mopt{
+  display:flex;align-items:center;gap:8px;
+  padding:11px 13px;border-radius:10px;
+  border:1.5px solid var(--border);background:var(--white);
+  font-size:.82rem;font-weight:600;cursor:pointer;
+  color:var(--ink2);transition:all .18s;
+}
+.mopt:hover{border-color:var(--emerald);background:var(--emerald-bg);color:var(--emerald-xdk)}
+.mprev-btn{
+  width:100%;padding:10px;border-radius:10px;
+  border:1.5px dashed var(--border2);background:var(--bg);
+  font-size:.81rem;font-weight:600;cursor:pointer;
+  color:var(--muted);display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:all .18s;margin-top:2px;
+}
+.mprev-btn:hover{border-color:var(--navy-mid);color:var(--navy);background:var(--bg2)}
+.ms2{display:none}
+.ms2.show{display:block}
+.mprev-area{padding:16px 22px;background:var(--bg);border-top:1px solid var(--border)}
+.mprev-area img{width:100%;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.1);display:block}
+.mprev-load{text-align:center;padding:28px 0;color:var(--muted);font-size:.84rem}
+.mprev-acts{
+  display:flex;gap:8px;padding:14px 22px;flex-wrap:wrap;
+  border-top:1px solid var(--border);
+}
+.mprev-dl{
+  flex:1;min-width:130px;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px;border-radius:9px;
+  background:var(--navy);color:#fff;
+  font-size:.82rem;font-weight:600;cursor:pointer;border:none;
+  transition:background .18s;
+}
+.mprev-dl:hover{background:var(--navy-mid)}
+.mprev-back{
+  padding:10px 14px;border-radius:9px;
+  border:1.5px solid var(--border);background:var(--white);
+  font-size:.82rem;font-weight:600;cursor:pointer;
+  color:var(--muted);transition:all .18s;
+}
+.mprev-back:hover{color:var(--ink);border-color:var(--border2)}
+
+/* =====================================================================
+   HOW IT WORKS
+   ===================================================================== */
+.hiw{padding:80px 28px;background:var(--white);border-top:1px solid var(--border)}
+.hiw-inner{max-width:1100px;margin:0 auto}
+.sec-ey{
+  display:inline-block;
+  background:var(--emerald-bg);color:var(--emerald-xdk);
+  font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;margin-bottom:10px;
+  border:1px solid var(--emerald-pale);
+}
+.sec-title{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:800;
+  color:var(--ink);margin-bottom:9px;
+  line-height:1.18;letter-spacing:-.3px;
+}
+.sec-sub{color:var(--muted);font-size:.95rem;max-width:500px;line-height:1.7}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+@media(max-width:620px){.steps{grid-template-columns:1fr}}
+.step{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:14px;padding:24px;
+  border-top:3px solid var(--emerald);
+}
+.step-n{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:2.5rem;font-weight:800;
+  color:var(--emerald-pale);line-height:1;margin-bottom:12px;
+}
+.step h3{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:.93rem;font-weight:700;color:var(--ink);margin-bottom:8px;
+}
+.step p{font-size:.83rem;color:var(--muted);line-height:1.62}
+
+/* =====================================================================
+   CONTENT
+   ===================================================================== */
+.content-sec{padding:80px 28px;background:var(--bg)}
+.content-inner{max-width:1100px;margin:0 auto}
+.content-sec h2{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(1.5rem,3vw,2rem);font-weight:800;
+  color:var(--ink);margin-bottom:14px;letter-spacing:-.3px;
+}
+.content-sec p{color:var(--ink2);font-size:.96rem;margin-bottom:13px;line-height:1.74}
+.content-sec strong{color:var(--ink)}
+
+/* Stat cards */
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+@media(max-width:560px){.stat3{grid-template-columns:1fr}}
+.s3c{
   background:var(--white);border:1px solid var(--border);
-  border-radius:16px;overflow:hidden;
-  box-shadow:var(--sh-lg);margin-bottom:32px;
-  display:grid;grid-template-columns:1fr 1fr;
-  transition:box-shadow .22s,transform .22s;
+  border-radius:12px;padding:22px;
+  border-top:3px solid var(--amber);
 }
-.featured-post:hover{box-shadow:0 12px 48px rgba(15,41,82,.16);transform:translateY(-2px)}
-@media(max-width:640px){.featured-post{grid-template-columns:1fr}}
-.fp-visual{
-  background:linear-gradient(135deg,var(--navy) 0%,#1a3a7a 100%);
-  padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;
-  min-height:260px;position:relative;overflow:hidden;
+.s3n{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.9rem;font-weight:800;color:var(--navy);
+  line-height:1;margin-bottom:7px;
 }
-.fp-visual::after{content:'';position:absolute;bottom:-20px;right:-20px;width:140px;height:140px;background:rgba(46,204,113,.1);border-radius:50%}
-.fp-visual::before{content:'';position:absolute;top:-30px;left:-30px;width:100px;height:100px;background:rgba(46,204,113,.06);border-radius:50%}
-.fp-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.28);color:var(--emerald);font-size:.68rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:4px 11px;border-radius:20px;width:fit-content;margin-bottom:16px;position:relative;z-index:1}
-.fp-big-num{font-family:'Bricolage Grotesque',sans-serif;font-size:3.8rem;font-weight:800;color:rgba(255,255,255,.08);line-height:1;position:absolute;bottom:16px;right:20px}
-.fp-visual h2{font-family:'Bricolage Grotesque',sans-serif;font-size:1.25rem;font-weight:800;color:#fff;line-height:1.22;position:relative;z-index:1}
-.fp-body{padding:28px 28px;display:flex;flex-direction:column;justify-content:space-between}
-.fp-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-.fp-tag{background:var(--emerald-bg);color:var(--emerald-xdk);font-size:.69rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid var(--emerald-pale)}
-.fp-date{font-size:.74rem;color:var(--light)}
-.fp-read{font-size:.74rem;color:var(--light)}
-.fp-excerpt{font-size:.88rem;color:var(--muted);line-height:1.72;margin-bottom:20px;flex:1}
-.fp-link{display:inline-flex;align-items:center;gap:7px;background:var(--navy);color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.85rem;padding:10px 20px;border-radius:9px;transition:background .18s;width:fit-content}
-.fp-link:hover{background:var(--navy-mid)}
-.fp-link svg{width:14px;height:14px;flex-shrink:0}
+.s3c p{font-size:.8rem;color:var(--muted);margin:0;line-height:1.5}
 
-/* POST GRID */
-.posts-label{font-family:'Bricolage Grotesque',sans-serif;font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px}
-.post-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:580px){.post-grid{grid-template-columns:1fr}}
-
-/* POST CARD */
-.post-card{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:14px;overflow:hidden;
-  transition:box-shadow .22s,transform .22s;
-  display:flex;flex-direction:column;
+/* Warning callout */
+.w2-warning{
+  background:var(--amber-bg);border:1.5px solid var(--amber-lt);
+  border-left:4px solid var(--amber);
+  border-radius:12px;padding:18px 22px;margin:28px 0;
+  display:flex;align-items:flex-start;gap:12px;
 }
-.post-card:hover{box-shadow:var(--sh-lg);transform:translateY(-2px)}
-.pc-top{padding:20px 20px 0}
-.pc-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.pc-tag{font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:20px;border:1px solid}
-.pc-tag.green{background:var(--emerald-bg);color:var(--emerald-xdk);border-color:var(--emerald-pale)}
-.pc-tag.amber{background:var(--amber-bg);color:var(--amber-dk);border-color:var(--amber-lt)}
-.pc-tag.blue{background:var(--bg2);color:var(--navy-mid);border-color:var(--border2)}
-.pc-date{font-size:.71rem;color:var(--light)}
-.pc-title{font-family:'Bricolage Grotesque',sans-serif;font-size:.97rem;font-weight:700;color:var(--ink);line-height:1.28;margin-bottom:8px}
-.pc-excerpt{font-size:.82rem;color:var(--muted);line-height:1.65;padding:0 20px}
-.pc-footer{padding:14px 20px 18px;margin-top:auto;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);margin-top:14px}
-.pc-read{font-size:.72rem;color:var(--light)}
-.pc-arrow{display:flex;align-items:center;gap:4px;font-size:.79rem;font-weight:600;color:var(--navy-mid);transition:gap .18s,color .18s}
-.post-card:hover .pc-arrow{gap:7px;color:var(--emerald-xdk)}
-.pc-arrow svg{width:13px;height:13px}
+.w2-warning-icon{font-size:1.35rem;flex-shrink:0;margin-top:2px}
+.w2-warning p{font-size:.87rem;color:var(--ink2);line-height:1.65;margin:0}
+.w2-warning p strong{color:var(--amber-dk)}
 
-/* COMING SOON card */
-.post-card.coming{opacity:.55;pointer-events:none}
-.pc-soon{display:inline-block;background:var(--bg2);color:var(--muted);font-size:.67rem;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid var(--border2);margin-top:4px}
+/* Tax reference box */
+.taxref{
+  background:var(--navy);border-radius:16px;
+  padding:28px 30px;margin:36px 0;
+}
+.taxref h3{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:.95rem;font-weight:700;color:#fff;
+  margin-bottom:18px;display:flex;align-items:center;gap:8px;
+}
+.taxref-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+@media(max-width:480px){.taxref-grid{grid-template-columns:1fr}.taxref{padding:20px}}
+.trc{
+  background:rgba(255,255,255,.06);border-radius:9px;
+  padding:14px 15px;border:1px solid rgba(255,255,255,.08);
+}
+.trc-name{font-size:.69rem;color:rgba(255,255,255,.4);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.trc-val{font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;color:var(--emerald);margin-bottom:3px}
+.trc-desc{font-size:.73rem;color:rgba(255,255,255,.42);line-height:1.5}
 
-/* SIDEBAR */
-.sidebar{display:flex;flex-direction:column;gap:16px;position:sticky;top:84px}
-@media(max-width:860px){.sidebar{position:static}}
-.sidebar-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px;box-shadow:var(--sh)}
-.sidebar-card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:.92rem;font-weight:700;color:var(--ink);margin-bottom:14px}
-.cta-card{background:var(--navy);border-radius:14px;padding:22px;text-align:center}
-.cta-card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px}
-.cta-card p{font-size:.82rem;color:rgba(255,255,255,.48);margin-bottom:16px;line-height:1.55}
-.cta-btn{display:block;background:var(--emerald);color:var(--navy);font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.88rem;padding:11px 20px;border-radius:9px;transition:background .18s}
-.cta-btn:hover{background:var(--emerald-dk);color:#fff}
-.topic-list{display:flex;flex-direction:column;gap:0}
-.topic-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:color .18s}
-.topic-item:last-child{border-bottom:none;padding-bottom:0}
-.topic-item:hover{color:var(--navy-mid)}
-.topic-name{font-size:.84rem;font-weight:500;color:var(--ink2)}
-.topic-count{font-size:.73rem;color:var(--light);background:var(--bg);padding:2px 8px;border-radius:20px;border:1px solid var(--border)}
-.newsletter-form{display:flex;flex-direction:column;gap:9px}
-.newsletter-form input{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;background:var(--bg);color:var(--ink);outline:none;transition:border-color .18s}
-.newsletter-form input:focus{border-color:var(--navy-mid);background:var(--white)}
-.newsletter-form button{width:100%;padding:10px;background:var(--emerald);color:var(--navy);border:none;border-radius:9px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:background .18s}
-.newsletter-form button:hover{background:var(--emerald-dk);color:#fff}
-.newsletter-note{font-size:.71rem;color:var(--light);text-align:center}
+/* =====================================================================
+   FAQ
+   ===================================================================== */
+.faq-sec{padding:0 28px 64px;background:var(--bg)}
+.faq-inner{max-width:1100px;margin:0 auto}
+.faq-sec h2{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(1.5rem,3vw,2rem);font-weight:800;
+  color:var(--ink);margin-bottom:22px;letter-spacing:-.3px;
+}
+.fi{
+  border:1px solid var(--border);border-radius:12px;
+  margin-bottom:8px;background:var(--white);
+  overflow:hidden;transition:box-shadow .2s;
+}
+.fi:hover{box-shadow:var(--sh)}
+.fq{
+  width:100%;text-align:left;padding:15px 20px;
+  background:none;border:none;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:.9rem;font-weight:600;color:var(--ink);
+  cursor:pointer;display:flex;justify-content:space-between;
+  align-items:center;gap:12px;line-height:1.4;
+}
+.fq:hover{background:var(--bg)}
+.fchev{
+  flex-shrink:0;width:24px;height:24px;
+  background:var(--bg);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;color:var(--navy);
+  transition:transform .22s,background .2s;
+  border:1px solid var(--border);
+}
+.fq.on .fchev{transform:rotate(180deg);background:var(--navy);color:#fff;border-color:var(--navy)}
+.fa{
+  display:none;padding:0 20px 15px;
+  font-size:.88rem;color:var(--ink2);line-height:1.74;
+  border-top:1px solid var(--border);padding-top:14px;
+}
+.fa.on{display:block}
 
-/* FOOTER */
+/* =====================================================================
+   FOOTER
+   ===================================================================== */
 footer{background:var(--navy);padding:24px 28px}
-.foot-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
-.foot-logo{font-family:'Bricolage Grotesque',sans-serif;font-size:.97rem;font-weight:700;color:#fff}
+.foot-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;
+  gap:10px;text-align:center;
+}
+.foot-logo{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:.97rem;font-weight:700;color:#fff;
+}
 .foot-logo em{color:var(--emerald);font-style:normal}
 .foot-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
 .foot-links a{color:rgba(255,255,255,.35);font-size:.75rem;transition:color .18s}
@@ -183,12 +894,16 @@ footer{background:var(--navy);padding:24px 28px}
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- =====================================================================
+     HEADER
+     =================================================================== -->
 <header>
   <div class="nav">
     <a href="/" class="logo">
       <div class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#0F2952" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F2952" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
       </div>
       <div>
         <span class="logo-name">TrueCost<em>Hiring</em></span>
@@ -196,19 +911,21 @@ footer{background:var(--navy);padding:24px 28px}
       </div>
     </a>
     <div class="nav-links">
-      <a href="/#how-it-works" class="nav-a">How It Works</a>
-      <a href="/#faq" class="nav-a">FAQ</a>
-      <a href="/blog/" class="nav-a active">Blog</a>
-      <a href="/about.html" class="nav-a">About</a>
-      <a href="/" class="nav-btn">Calculate Now</a>
+      <a href="#how-it-works" class="nav-a">How It Works</a>
+      <a href="#faq" class="nav-a">FAQ</a>
+      <a href="#calculator" class="nav-btn">Calculate Now</a>
     </div>
     <button class="hamburger" onclick="openMM()" aria-label="Menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
     </button>
   </div>
 </header>
 
-<!-- MOBILE MENU -->
+<!-- Mobile Menu -->
 <div class="mm-overlay" id="mm" onclick="closeMM(event)">
   <div class="mm-panel">
     <div class="mm-top">
@@ -216,243 +933,600 @@ footer{background:var(--navy);padding:24px 28px}
       <button class="mm-x" onclick="closeMM()">x</button>
     </div>
     <div class="mm-links">
-      <a href="/" class="mm-lnk" onclick="closeMM()">
+      <a href="#calculator" class="mm-lnk" onclick="closeMM()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="12" y2="10"/></svg>
         Calculator
       </a>
-      <a href="/#how-it-works" class="mm-lnk" onclick="closeMM()">
+      <a href="#how-it-works" class="mm-lnk" onclick="closeMM()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
         How It Works
       </a>
-      <a href="/blog/" class="mm-lnk" onclick="closeMM()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-        Blog
-      </a>
-      <a href="/about.html" class="mm-lnk" onclick="closeMM()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        About Us
+      <a href="#faq" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        FAQ
       </a>
     </div>
-    <a href="/" class="mm-cta" onclick="closeMM()">Calculate Now - Free</a>
+    <a href="#calculator" class="mm-cta" onclick="closeMM()">Calculate Now - Free</a>
   </div>
 </div>
 
-<!-- HERO -->
-<section class="page-hero">
-  <div class="page-hero-inner">
-    <div class="breadcrumb">
-      <a href="/">Home</a><span>/</span>
-      <strong>Blog</strong>
+<!-- =====================================================================
+     HERO
+     =================================================================== -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        2025 US Employer Cost Calculator
+      </div>
+      <h1>What Does Hiring an Employee <em>Actually</em> Cost Your Business?</h1>
+      <p class="hero-sub">Beyond the salary - see every mandatory tax, insurance fee, and benefit cost before your next hire. Compare W2 vs 1099 side by side for all 50 states.</p>
+      <div class="hero-actions">
+        <a href="#calculator" class="hero-cta">
+          Run the Numbers
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span class="hero-note">Free - No signup required</span>
+      </div>
     </div>
-    <div class="page-eyebrow">Hiring Cost Guides</div>
-    <h1>Free Guides for <em>Smarter</em> Hiring Decisions</h1>
-    <p class="page-hero-sub">Plain-English guides on employee costs, payroll taxes, W2 vs 1099 decisions, and everything small business owners need to know before their next hire. Updated for 2025.</p>
+    <div class="hero-right">
+      <div class="hcard">
+        <div class="hcard-title">Example: $65,000 Salary - Illinois</div>
+        <div class="hcard-row"><span class="hcard-lbl">Base Salary</span><span class="hcard-val">$65,000</span></div>
+        <div class="hcard-row"><span class="hcard-lbl">FICA Payroll Tax</span><span class="hcard-val amber">+$4,972</span></div>
+        <div class="hcard-row"><span class="hcard-lbl">FUTA + SUTA (UI)</span><span class="hcard-val amber">+$348</span></div>
+        <div class="hcard-row"><span class="hcard-lbl">Workers Comp</span><span class="hcard-val amber">+$780</span></div>
+        <div class="hcard-row"><span class="hcard-lbl">Basic Benefits</span><span class="hcard-val amber">+$7,500</span></div>
+        <div class="hcard-row"><span class="hcard-lbl">True Annual Cost</span><span class="hcard-val emerald">$78,600</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stats-inner">
+      <div class="hstat">
+        <div class="hstat-n"><b>32%</b></div>
+        <div class="hstat-l">Average hidden cost above base salary</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">7.65<b>%</b></div>
+        <div class="hstat-l">Minimum employer payroll tax (FICA)</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">50</div>
+        <div class="hstat-l">US state SUTA rates built in</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n"><b>$0</b></div>
+        <div class="hstat-l">Cost to use this tool</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FILTER TABS -->
-<div class="filter-bar">
-  <div class="filter-inner">
-    <button class="filter-tab active">All Posts</button>
-    <button class="filter-tab">Hiring Costs</button>
-    <button class="filter-tab">Payroll Taxes</button>
-    <button class="filter-tab">W2 vs 1099</button>
-    <button class="filter-tab">State Guides</button>
-    <button class="filter-tab">Compliance</button>
+<!-- =====================================================================
+     CALCULATOR
+     =================================================================== -->
+<section class="calc-section" id="calculator">
+  <div class="calc-wrap">
+    <div class="calc-card">
+      <div class="card-hdr">
+        <div>
+          <div class="card-htitle">Contractor vs Employee True Cost Calculator</div>
+          <div class="card-hsub">Tap the small ? on any field for a plain-English explanation</div>
+        </div>
+        <div class="card-badge">All 50 States - 2025 Rates</div>
+      </div>
+
+      <div class="form-body" id="form-body">
+        <div class="form-grid">
+
+          <!-- SALARY OR HOURLY -->
+          <div class="fg full">
+            <div class="flabel" style="margin-bottom:4px">
+              How are you paying?
+              <button class="hbtn" onclick="ttip('t-sal')">?</button>
+            </div>
+            <div class="tip" id="t-sal">
+              <strong>Hourly or Annual?</strong> Enter either an hourly rate plus weekly hours, or a full annual salary. Filling one side auto-clears the other. Example: $35/hr x 40 hrs/wk = $72,800/yr.
+            </div>
+            <div class="sal-grid">
+              <div class="fg">
+                <div class="flabel" style="font-size:.76rem;color:var(--muted);font-weight:500">Hourly Rate</div>
+                <div class="iw"><span class="ipfx">$</span><input type="number" id="hrly" placeholder="e.g. 35" min="1" oninput="onHourly()"/></div>
+              </div>
+              <div class="fg">
+                <div class="flabel" style="font-size:.76rem;color:var(--muted);font-weight:500">Hours Per Week</div>
+                <input type="number" id="hpw" placeholder="40" value="40" min="1" max="80" oninput="onHourly()"/>
+              </div>
+            </div>
+            <div class="or-row"><div class="or-line"></div><div class="or-badge">OR</div><div class="or-line"></div></div>
+            <div class="fg">
+              <div class="flabel" style="font-size:.76rem;color:var(--muted);font-weight:500">Annual Salary</div>
+              <div class="iw"><span class="ipfx">$</span><input type="number" id="annual" placeholder="e.g. 72,800" min="1000" oninput="onAnnual()"/></div>
+            </div>
+          </div>
+
+          <!-- STATE -->
+          <div class="fg">
+            <div class="flabel">
+              State (Unemployment Rate)
+              <button class="hbtn" onclick="ttip('t-st')">?</button>
+            </div>
+            <div class="tip" id="t-st">
+              <strong>Why does state matter?</strong> Each US state charges employers a SUTA (State Unemployment Tax) on wages paid to W2 employees.
+              <ul>
+                <li>100% paid by you - never deducted from the employee</li>
+                <li>Applies only to first $7,000 to $9,000 of wages per year</li>
+                <li>New employer rates typically range from 1% to 3.4%</li>
+              </ul>
+            </div>
+            <select id="state" onchange="pills()">
+              <option value="AL|2.70">Alabama - SUTA 2.70%</option><option value="AK|1.00">Alaska - SUTA 1.00%</option><option value="AZ|2.00">Arizona - SUTA 2.00%</option><option value="AR|3.10">Arkansas - SUTA 3.10%</option><option value="CA|3.40">California - SUTA 3.40%</option><option value="CO|1.70">Colorado - SUTA 1.70%</option><option value="CT|3.20">Connecticut - SUTA 3.20%</option><option value="DE|1.80">Delaware - SUTA 1.80%</option><option value="FL|2.70">Florida - SUTA 2.70%</option><option value="GA|2.70">Georgia - SUTA 2.70%</option><option value="HI|3.00">Hawaii - SUTA 3.00%</option><option value="ID|1.50">Idaho - SUTA 1.50%</option><option value="IL|3.40" selected>Illinois - SUTA 3.40%</option><option value="IN|2.50">Indiana - SUTA 2.50%</option><option value="IA|1.00">Iowa - SUTA 1.00%</option><option value="KS|2.70">Kansas - SUTA 2.70%</option><option value="KY|2.70">Kentucky - SUTA 2.70%</option><option value="LA|1.60">Louisiana - SUTA 1.60%</option><option value="ME|2.50">Maine - SUTA 2.50%</option><option value="MD|2.60">Maryland - SUTA 2.60%</option><option value="MA|2.90">Massachusetts - SUTA 2.90%</option><option value="MI|2.70">Michigan - SUTA 2.70%</option><option value="MN|1.00">Minnesota - SUTA 1.00%</option><option value="MS|1.00">Mississippi - SUTA 1.00%</option><option value="MO|2.10">Missouri - SUTA 2.10%</option><option value="MT|1.00">Montana - SUTA 1.00%</option><option value="NE|1.25">Nebraska - SUTA 1.25%</option><option value="NV|2.00">Nevada - SUTA 2.00%</option><option value="NH|1.70">New Hampshire - SUTA 1.70%</option><option value="NJ|3.40">New Jersey - SUTA 3.40%</option><option value="NM|1.00">New Mexico - SUTA 1.00%</option><option value="NY|3.40">New York - SUTA 3.40%</option><option value="NC|1.20">North Carolina - SUTA 1.20%</option><option value="ND|1.00">North Dakota - SUTA 1.00%</option><option value="OH|2.70">Ohio - SUTA 2.70%</option><option value="OK|2.70">Oklahoma - SUTA 2.70%</option><option value="OR|2.60">Oregon - SUTA 2.60%</option><option value="PA|2.80">Pennsylvania - SUTA 2.80%</option><option value="RI|2.40">Rhode Island - SUTA 2.40%</option><option value="SC|1.00">South Carolina - SUTA 1.00%</option><option value="SD|1.20">South Dakota - SUTA 1.20%</option><option value="TN|2.70">Tennessee - SUTA 2.70%</option><option value="TX|2.70">Texas - SUTA 2.70%</option><option value="UT|1.00">Utah - SUTA 1.00%</option><option value="VT|1.00">Vermont - SUTA 1.00%</option><option value="VA|2.50">Virginia - SUTA 2.50%</option><option value="WA|1.00">Washington - SUTA 1.00%</option><option value="WV|2.70">West Virginia - SUTA 2.70%</option><option value="WI|2.50">Wisconsin - SUTA 2.50%</option><option value="WY|1.60">Wyoming - SUTA 1.60%</option>
+            </select>
+            <div class="lpill"><div class="ldot"></div><span id="p-suta">Loading...</span></div>
+          </div>
+
+          <!-- JOB CATEGORY -->
+          <div class="fg">
+            <div class="flabel">
+              Job Category (Workers Comp)
+              <button class="hbtn" onclick="ttip('t-wc')">?</button>
+            </div>
+            <div class="tip" id="t-wc">
+              <strong>Workers Compensation Insurance</strong> is mandatory for all W2 employees. Rate is based on injury risk of the role:
+              <ul>
+                <li>Office / Administrative - 0.5%</li>
+                <li>Professional / Technical - 1.2%</li>
+                <li>Sales / Service / Driver - 2.5%</li>
+                <li>Skilled Trades - 5%</li>
+                <li>Construction / Labor - 10%</li>
+              </ul>
+              <strong>1099 contractors carry their own. Your cost: $0.</strong>
+            </div>
+            <select id="wc" onchange="pills()">
+              <option value="0.005">Office / Administrative - 0.5%</option>
+              <option value="0.012" selected>Professional / Technical - 1.2%</option>
+              <option value="0.025">Sales / Service / Driver - 2.5%</option>
+              <option value="0.05">Skilled Trades (Electrician, Plumber) - 5%</option>
+              <option value="0.10">Construction / Heavy Labor - 10%</option>
+            </select>
+            <div class="lpill"><div class="ldot"></div><span id="p-wc">Loading...</span></div>
+          </div>
+
+          <!-- BENEFITS -->
+          <div class="fg full">
+            <div class="flabel">
+              Benefits Package
+              <button class="hbtn" onclick="ttip('t-ben')">?</button>
+            </div>
+            <div class="tip" id="t-ben">
+              <strong>None ($0/yr)</strong> - No employer benefits. Common for part-time or short-term hires.<br/><br/>
+              <strong>Basic (~$7,500/yr)</strong> - Health insurance (~$5,500), dental/vision (~$1,000), minimal 401k match (~$1,000).<br/><br/>
+              <strong>Full Package (~$16,000/yr)</strong> - Comprehensive health/dental/vision, 4% 401k match, 15 days PTO, life insurance, payroll processing.
+            </div>
+            <div class="btog">
+              <div class="bopt"><input type="radio" name="ben" id="b0" value="0"/><label for="b0"><span class="bt">None</span><span class="bs">$0 / yr</span></label></div>
+              <div class="bopt"><input type="radio" name="ben" id="b1" value="7500" checked/><label for="b1"><span class="bt">Basic</span><span class="bs">~$7,500 / yr</span></label></div>
+              <div class="bopt"><input type="radio" name="ben" id="b2" value="16000"/><label for="b2"><span class="bt">Full Package</span><span class="bs">~$16,000 / yr</span></label></div>
+            </div>
+          </div>
+
+        </div>
+        <button class="calbtn" onclick="calc()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+          Calculate True Hiring Cost
+        </button>
+      </div>
+
+      <div class="res-sep"></div>
+
+      <div id="results">
+        <div class="print-hdr">
+          <div class="print-hdr-logo">TrueCost<span>Hiring</span>.com</div>
+          <div class="print-hdr-date">W2 vs 1099 Cost Report - 2025</div>
+        </div>
+
+        <div class="isummary" id="isummary"></div>
+
+        <div class="verdict">
+          <div class="vicon">💡</div>
+          <div class="vbody">
+            <strong id="vamt"></strong>
+            <p id="vdesc"></p>
+          </div>
+        </div>
+
+        <div class="qs">
+          <div class="qsc"><div class="qsc-v" id="qs1"></div><div class="qsc-l">True monthly cost (W2 Employee)</div></div>
+          <div class="qsc"><div class="qsc-v" id="qs2"></div><div class="qsc-l">Monthly cost (1099 Contractor)</div></div>
+          <div class="qsc"><div class="qsc-v" id="qs3"></div><div class="qsc-l">Monthly savings with contractor</div></div>
+        </div>
+
+        <div class="cg">
+          <div class="cc w2">
+            <div class="ch"><span class="ch-name">W2 Employee</span><span class="ch-badge">All costs on you</span></div>
+            <div class="cr"><span class="cl">Base Salary</span><span class="cv" id="r-sal"></span></div>
+            <div class="cr"><span class="cl">Social Security (6.2%)</span><span class="cv" id="r-ss"></span></div>
+            <div class="cr"><span class="cl">Medicare (1.45%)</span><span class="cv" id="r-med"></span></div>
+            <div class="cr"><span class="cl">FUTA Federal UI (0.6%)</span><span class="cv" id="r-futa"></span></div>
+            <div class="cr"><span class="cl">SUTA State UI</span><span class="cv" id="r-suta"></span></div>
+            <div class="cr"><span class="cl">Workers Comp Insurance</span><span class="cv" id="r-wc"></span></div>
+            <div class="cr"><span class="cl">Benefits Package</span><span class="cv" id="r-ben"></span></div>
+            <div class="cr ctot"><span class="cl">TOTAL TRUE COST</span><span class="cv" id="r-w2tot"></span></div>
+          </div>
+          <div class="cc c99">
+            <div class="ch"><span class="ch-name">1099 Contractor</span><span class="ch-badge">They pay own taxes</span></div>
+            <div class="cr"><span class="cl">Contract Rate</span><span class="cv" id="r-crate"></span></div>
+            <div class="cr"><span class="cl">Social Security</span><span class="cv z">$0 - contractor pays</span></div>
+            <div class="cr"><span class="cl">Medicare</span><span class="cv z">$0 - contractor pays</span></div>
+            <div class="cr"><span class="cl">FUTA Federal UI</span><span class="cv z">$0 - not required</span></div>
+            <div class="cr"><span class="cl">SUTA State UI</span><span class="cv z">$0 - not required</span></div>
+            <div class="cr"><span class="cl">Workers Comp</span><span class="cv z">$0 - they carry own</span></div>
+            <div class="cr"><span class="cl">Benefits</span><span class="cv z">$0 - not provided</span></div>
+            <div class="cr ctot"><span class="cl">TOTAL TRUE COST</span><span class="cv" id="r-ctot"></span></div>
+          </div>
+        </div>
+
+        <div class="barsec">
+          <h3>Where Does the Money Go? - W2 Cost Breakdown</h3>
+          <div id="bars"></div>
+        </div>
+
+        <div class="share-row">
+          <span class="share-lbl">Share:</span>
+          <button class="sbtn primary" onclick="openShare()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share Comparison
+          </button>
+          <button class="sbtn" onclick="window.print()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print / PDF
+          </button>
+        </div>
+        <div class="edit-row">
+          <button class="editbtn" onclick="editInputs()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit inputs and recalculate
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHARE MODAL -->
+<div class="modal-bg" id="modal-bg" style="display:none" onclick="closeBg(event)">
+  <div class="modal">
+    <div class="mhd">
+      <h3>Share Your Results</h3>
+      <button class="mx" onclick="closeShare()">x</button>
+    </div>
+    <div class="ms1" id="ms1">
+      <div class="mopts">
+        <button class="mopt" onclick="shareX()">X (Twitter)</button>
+        <button class="mopt" onclick="shareLinkedIn()">LinkedIn</button>
+        <button class="mopt" onclick="shareWhatsApp()">WhatsApp</button>
+        <button class="mopt" onclick="copyLink()">Copy Link</button>
+      </div>
+      <button class="mprev-btn" onclick="genPreview()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Generate Image Preview to Download
+      </button>
+    </div>
+    <div class="ms2" id="ms2">
+      <div class="mprev-area">
+        <div class="mprev-load" id="mprev-load">Generating image preview...</div>
+        <img id="mprev-img" style="display:none" alt="Cost comparison preview"/>
+      </div>
+      <div class="mprev-acts">
+        <button class="mprev-back" onclick="backToOpts()">Back</button>
+        <button class="mprev-dl" onclick="dlImg()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PNG
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- BLOG CONTENT -->
-<div class="blog-wrap">
-  <main>
-
-    <!-- FEATURED POST -->
-    <div class="posts-label">Featured Guide</div>
-    <a href="/blog/what-is-true-cost-of-hiring.html" class="featured-post">
-      <div class="fp-visual">
-        <div class="fp-badge">Most Popular</div>
-        <h2>What is the True Cost of Hiring an Employee? The Complete 2025 Guide</h2>
-        <div class="fp-big-num">32%</div>
+<!-- HOW IT WORKS -->
+<section class="hiw" id="how-it-works">
+  <div class="hiw-inner">
+    <div class="sec-ey">How It Works</div>
+    <h2 class="sec-title">Three Inputs. A Complete Cost Picture.</h2>
+    <p class="sec-sub">No accountant needed. Uses 2025 IRS and state tax authority rates to compute your real employer cost in seconds.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <h3>Enter Salary or Hourly Rate</h3>
+        <p>Enter an hourly rate with weekly hours, or a known annual salary. The tool converts either format for a clean annual comparison.</p>
       </div>
-      <div class="fp-body">
-        <div>
-          <div class="fp-meta">
-            <span class="fp-tag">Hiring Costs</span>
-            <span class="fp-date">March 2025</span>
-            <span class="fp-read">8 min read</span>
-          </div>
-          <p class="fp-excerpt">Most employers think hiring a $60,000 employee costs $60,000. The real number is closer to $78,000. This guide breaks down every hidden cost including FICA, FUTA, SUTA, workers comp, and benefits - with a full worked example and free calculator.</p>
-        </div>
-        <div class="fp-link">
-          Read the Guide
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <h3>Select Your State and Role</h3>
+        <p>Choose your state for the correct SUTA unemployment rate, and job category for the accurate workers compensation premium tier.</p>
       </div>
-    </a>
-
-    <!-- ALL POSTS -->
-    <div class="posts-label" style="margin-top:36px">All Articles</div>
-    <div class="post-grid">
-
-      <!-- Post 1 - live -->
-      <a href="/blog/what-is-true-cost-of-hiring.html" class="post-card">
-        <div class="pc-top">
-          <div class="pc-meta">
-            <span class="pc-tag green">Hiring Costs</span>
-            <span class="pc-date">March 2025</span>
-          </div>
-          <div class="pc-title">What is the True Cost of Hiring an Employee? Complete 2025 Guide</div>
-        </div>
-        <p class="pc-excerpt">Every hidden cost explained - FICA, FUTA, SUTA, workers comp, and benefits - with a full $65k salary example.</p>
-        <div class="pc-footer">
-          <span class="pc-read">8 min read</span>
-          <span class="pc-arrow">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-
-      <!-- Post 2 - coming soon -->
-      <div class="post-card coming">
-        <div class="pc-top">
-          <div class="pc-meta">
-            <span class="pc-tag amber">W2 vs 1099</span>
-            <span class="pc-soon">Coming Soon</span>
-          </div>
-          <div class="pc-title">W2 Employee vs 1099 Contractor: Which is Right for Your Business?</div>
-        </div>
-        <p class="pc-excerpt">A complete side-by-side comparison including true costs, legal risks, and the break-even point for your state.</p>
-        <div class="pc-footer">
-          <span class="pc-read">7 min read</span>
-          <span class="pc-arrow">Coming soon</span>
-        </div>
-      </div>
-
-      <!-- Post 3 - coming soon -->
-      <div class="post-card coming">
-        <div class="pc-top">
-          <div class="pc-meta">
-            <span class="pc-tag blue">Payroll Taxes</span>
-            <span class="pc-soon">Coming Soon</span>
-          </div>
-          <div class="pc-title">FICA, FUTA, and SUTA Explained: A Small Business Owner's Guide to Payroll Taxes</div>
-        </div>
-        <p class="pc-excerpt">Plain-English explanation of every payroll tax you owe as an employer, with 2025 rates and payment deadlines.</p>
-        <div class="pc-footer">
-          <span class="pc-read">6 min read</span>
-          <span class="pc-arrow">Coming soon</span>
-        </div>
-      </div>
-
-      <!-- Post 4 - coming soon -->
-      <div class="post-card coming">
-        <div class="pc-top">
-          <div class="pc-meta">
-            <span class="pc-tag green">State Guides</span>
-            <span class="pc-soon">Coming Soon</span>
-          </div>
-          <div class="pc-title">True Cost of Hiring an Employee in California: 2025 Complete Guide</div>
-        </div>
-        <p class="pc-excerpt">California has the highest employer costs in the country. See the full breakdown including CA SUTA, SDI, and workers comp.</p>
-        <div class="pc-footer">
-          <span class="pc-read">5 min read</span>
-          <span class="pc-arrow">Coming soon</span>
-        </div>
-      </div>
-
-      <!-- Post 5 - coming soon -->
-      <div class="post-card coming">
-        <div class="pc-top">
-          <div class="pc-meta">
-            <span class="pc-tag amber">Compliance</span>
-            <span class="pc-soon">Coming Soon</span>
-          </div>
-          <div class="pc-title">Employee Misclassification: What It Is, Why It Happens, and How to Avoid It</div>
-        </div>
-        <p class="pc-excerpt">The IRS collected $4.2 billion in misclassification penalties last year. Here is how to make sure you are not next.</p>
-        <div class="pc-footer">
-          <span class="pc-read">6 min read</span>
-          <span class="pc-arrow">Coming soon</span>
-        </div>
-      </div>
-
-      <!-- Post 6 - coming soon -->
-      <div class="post-card coming">
-        <div class="pc-top">
-          <div class="pc-meta">
-            <span class="pc-tag blue">Hiring Costs</span>
-            <span class="pc-soon">Coming Soon</span>
-          </div>
-          <div class="pc-title">How Much Do Employee Benefits Actually Cost? 2025 Employer Guide</div>
-        </div>
-        <p class="pc-excerpt">Health insurance, dental, vision, 401k, PTO - a detailed breakdown of what each benefit costs employers in 2025.</p>
-        <div class="pc-footer">
-          <span class="pc-read">5 min read</span>
-          <span class="pc-arrow">Coming soon</span>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-
-    <div class="cta-card">
-      <h3>Free Cost Calculator</h3>
-      <p>See what your next hire will really cost - for your state, in 60 seconds.</p>
-      <a href="/" class="cta-btn">Run the Numbers</a>
-    </div>
-
-    <div class="sidebar-card">
-      <h3>Browse by Topic</h3>
-      <div class="topic-list">
-        <div class="topic-item"><span class="topic-name">Hiring Costs</span><span class="topic-count">2</span></div>
-        <div class="topic-item"><span class="topic-name">W2 vs 1099</span><span class="topic-count">1</span></div>
-        <div class="topic-item"><span class="topic-name">Payroll Taxes</span><span class="topic-count">1</span></div>
-        <div class="topic-item"><span class="topic-name">State Guides</span><span class="topic-count">1</span></div>
-        <div class="topic-item"><span class="topic-name">Compliance</span><span class="topic-count">1</span></div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <h3>Get Your Full Breakdown</h3>
+        <p>See the true annual cost for W2 vs 1099, every line item explained, and a visual chart showing exactly where each dollar goes.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="sidebar-card">
-      <h3>Get New Guides by Email</h3>
-      <div class="newsletter-form">
-        <input type="email" placeholder="your@email.com"/>
-        <button>Notify Me</button>
-        <span class="newsletter-note">No spam. Unsubscribe any time.</span>
-      </div>
+<!-- CONTENT -->
+<section class="content-sec">
+  <div class="content-inner">
+    <h2>Why Your Employee Costs More Than Their Salary</h2>
+    <p>When most business owners post a $60,000 job listing, they budget $60,000. The real annual cost - after mandatory payroll taxes, federal and state unemployment insurance, workers compensation, and a modest benefits package - typically lands between <strong>$76,000 and $85,000</strong>. That $16,000 to $25,000 gap surprises small business owners every year.</p>
+    <p>A 1099 contractor shifts most overhead costs onto themselves. They pay their own self-employment tax (15.3%), carry their own insurance, and fund their own retirement. The trade-off is they charge higher rates. This calculator shows the true apples-to-apples comparison.</p>
+
+    <div class="w2-warning">
+      <div class="w2-warning-icon">⚠️</div>
+      <p><strong>W2 Compliance Warning:</strong> Misclassifying a W2 employee as a 1099 contractor can result in IRS back taxes, interest, and fines from $50 to $1,000 per worker per violation. Always verify worker classification before hiring. When in doubt, consult a licensed CPA or employment attorney.</p>
     </div>
 
-  </aside>
-</div>
+    <div class="stat3">
+      <div class="s3c"><div class="s3n">7.65%</div><p>Minimum employer FICA tax on every dollar of W2 salary, paid on top of the employee's own 7.65% share</p></div>
+      <div class="s3c"><div class="s3n">+$16K</div><p>Average annual cost of a full benefits package including health, dental, vision, and 401k match</p></div>
+      <div class="s3c"><div class="s3n">32%</div><p>Typical true cost premium above base salary for a W2 employee with a standard benefits package</p></div>
+    </div>
+
+    <div class="taxref">
+      <h3>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        2025 Employer Tax Quick Reference
+      </h3>
+      <div class="taxref-grid">
+        <div class="trc">
+          <div class="trc-name">Social Security (OASDI)</div>
+          <div class="trc-val">6.2% employer share</div>
+          <div class="trc-desc">On first $176,100 of wages. Employee also pays 6.2% separately from their own paycheck.</div>
+        </div>
+        <div class="trc">
+          <div class="trc-name">Medicare (HI)</div>
+          <div class="trc-val">1.45% employer share</div>
+          <div class="trc-desc">No wage cap. Additional 0.9% employee surtax on earnings above $200,000.</div>
+        </div>
+        <div class="trc">
+          <div class="trc-name">FUTA Federal UI</div>
+          <div class="trc-val">0.6% effective rate</div>
+          <div class="trc-desc">6% gross on first $7,000 of wages, minus 5.4% credit when SUTA is paid on time.</div>
+        </div>
+        <div class="trc">
+          <div class="trc-name">SUTA State UI</div>
+          <div class="trc-val">1.0% to 3.4% new employer</div>
+          <div class="trc-desc">Set by each state, applied to the first $7,000 to $9,000 of wages annually.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec" id="faq">
+  <div class="faq-inner">
+    <div class="sec-ey">Common Questions</div>
+    <h2>Frequently Asked Questions</h2>
+    <div class="fi"><button class="fq" onclick="tfaq(this)">How much more does a W2 employee cost than their salary?<span class="fchev">v</span></button><div class="fa">A W2 employee typically costs 25-40% more than their base salary. For a $60,000 hire, the true annual cost including payroll taxes, unemployment insurance, workers comp, and a basic benefits package usually falls between $75,000 and $85,000. This calculator shows every line item so there are no surprises.</div></div>
+    <div class="fi"><button class="fq" onclick="tfaq(this)">What is FICA and who pays it?<span class="fchev">v</span></button><div class="fa">FICA covers Social Security (6.2%) and Medicare (1.45%). Both you and your employee pay it separately. Your employee's 7.65% is deducted from their paycheck. You pay another 7.65% on top of their salary out of your own pocket. For a $65,000 employee, your employer FICA contribution alone is $4,972 per year.</div></div>
+    <div class="fi"><button class="fq" onclick="tfaq(this)">What is the difference between FUTA and SUTA?<span class="fchev">v</span></button><div class="fa">Both are unemployment insurance taxes paid entirely by the employer - never deducted from the employee. FUTA is 6% on the first $7,000 of wages, but paying SUTA on time earns you a 5.4% federal credit, making effective FUTA just 0.6% (max $42 per employee per year). SUTA is set by your state and typically ranges from 1% to 5% for new employers.</div></div>
+    <div class="fi"><button class="fq" onclick="tfaq(this)">Can I save money hiring a 1099 contractor instead of an employee?<span class="fchev">v</span></button><div class="fa">Yes - at the same base pay, a contractor costs significantly less because you skip all employer taxes, workers comp, and benefits. However, experienced contractors typically charge 20-40% higher rates to cover their own self-employment taxes (15.3%) and benefits. Use this calculator to find your exact break-even point.</div></div>
+    <div class="fi"><button class="fq" onclick="tfaq(this)">What are the penalties for misclassifying an employee as a contractor?<span class="fchev">v</span></button><div class="fa">Misclassification is one of the most audited IRS issues. Penalties include back payroll taxes with interest, fines from $50 to $1,000 per worker per violation, and potential criminal charges for intentional cases. The IRS uses a behavioral control, financial control, and relationship-type test to determine classification. Always consult a CPA or employment attorney.</div></div>
+    <div class="fi"><button class="fq" onclick="tfaq(this)">Why does workers comp vary so much by job type?<span class="fchev">v</span></button><div class="fa">Workers compensation premiums are based on injury risk. The NCCI assigns every job type a classification code and rate. An office worker has minimal injury risk (around 0.5%), while a construction laborer faces significant daily physical risk (10% or more). Most states legally require coverage for all W2 employees from day one.</div></div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">TrueCost<em>Hiring</em>.com</div>
     <div class="foot-links">
-      <a href="/">Calculator</a>
-      <a href="/#how-it-works">How It Works</a>
-      <a href="/#faq">FAQ</a>
-      <a href="/blog/">Blog</a>
-      <a href="/about.html">About</a>
-      <a href="/privacy-policy.html">Privacy Policy</a>
-      <a href="/disclaimer.html">Disclaimer</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Disclaimer</a>
     </div>
-    <p class="foot-disc">Tax rates are estimates for educational purposes only. Consult a licensed CPA or HR professional before making hiring decisions.</p>
+    <p class="foot-disc">Tax rates are estimates for educational purposes only. Consult a licensed CPA or HR professional before making hiring decisions. FUTA, SUTA, and workers comp rates reflect 2025 standard new-employer rates and vary by state, industry, and claims history.</p>
   </div>
 </footer>
 
 <script>
+/* ============ DATA ============ */
+const SR={AL:2.70,AK:1.00,AZ:2.00,AR:3.10,CA:3.40,CO:1.70,CT:3.20,DE:1.80,FL:2.70,GA:2.70,HI:3.00,ID:1.50,IL:3.40,IN:2.50,IA:1.00,KS:2.70,KY:2.70,LA:1.60,ME:2.50,MD:2.60,MA:2.90,MI:2.70,MN:1.00,MS:1.00,MO:2.10,MT:1.00,NE:1.25,NV:2.00,NH:1.70,NJ:3.40,NM:1.00,NY:3.40,NC:1.20,ND:1.00,OH:2.70,OK:2.70,OR:2.60,PA:2.80,RI:2.40,SC:1.00,SD:1.20,TN:2.70,TX:2.70,UT:1.00,VT:1.00,VA:2.50,WA:1.00,WV:2.70,WI:2.50,WY:1.60};
+const SN={AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",FL:"Florida",GA:"Georgia",HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MI:"Michigan",MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NJ:"New Jersey",NM:"New Mexico",NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",VA:"Virginia",WA:"Washington",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming"};
+
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+const sc=()=>document.getElementById('state').value.split('|')[0];
+const sutaR=()=>SR[sc()]||2.70;
+const wcR=()=>parseFloat(document.getElementById('wc').value);
+function getSal(){
+  const a=parseFloat(document.getElementById('annual').value);
+  if(a>0)return a;
+  const h=parseFloat(document.getElementById('hrly').value)||0;
+  return h*(parseFloat(document.getElementById('hpw').value)||40)*52;
+}
+function onHourly(){
+  if(document.getElementById('hrly').value){
+    document.getElementById('annual').value='';
+    document.getElementById('annual').classList.add('dim');
+  }else{document.getElementById('annual').classList.remove('dim')}
+  pills();
+}
+function onAnnual(){
+  if(document.getElementById('annual').value){
+    document.getElementById('hrly').value='';
+    document.getElementById('hpw').value='';
+    document.getElementById('hrly').classList.add('dim');
+    document.getElementById('hpw').classList.add('dim');
+  }else{
+    document.getElementById('hrly').classList.remove('dim');
+    document.getElementById('hpw').classList.remove('dim');
+  }
+  pills();
+}
+function pills(){
+  const sal=getSal()||0;
+  const s=sutaR();
+  const sa=Math.min(sal,9000)*(s/100);
+  document.getElementById('p-suta').textContent=`${SN[sc()]} SUTA: ${s.toFixed(2)}% on first $9,000 = ${fmt(sa)}/yr`;
+  const w=wcR();
+  document.getElementById('p-wc').textContent=`Workers Comp: ${(w*100).toFixed(1)}% rate = ${fmt(sal*w)}/yr`;
+}
+function ttip(id){document.getElementById(id).classList.toggle('on')}
+
+let LR={};
+function calc(){
+  const sal=getSal();
+  if(!sal||sal<1){alert('Please enter a salary or hourly rate to continue.');return;}
+  const suta=sutaR(),wc=wcR();
+  const ben=parseFloat(document.querySelector('input[name="ben"]:checked').value)||0;
+  const ss=sal*.062,med=sal*.0145,futa=Math.min(sal,7000)*.006;
+  const sutaA=Math.min(sal,9000)*(suta/100),wcA=sal*wc;
+  const w2=sal+ss+med+futa+sutaA+wcA+ben,diff=w2-sal;
+  LR={sal,ss,med,futa,sutaA,wcA,ben,w2,diff};
+
+  const bl=ben===0?'None':ben===7500?'Basic (~$7,500/yr)':'Full (~$16,000/yr)';
+  const hv=document.getElementById('hrly').value,hp=document.getElementById('hpw').value||40;
+  document.getElementById('isummary').innerHTML=`
+    <div class="isum-f"><div class="isum-l">Salary</div><div class="isum-v">${hv?`$${hv}/hr x ${hp}hrs = ${fmt(sal)}/yr`:fmt(sal)+'/yr'}</div></div>
+    <div class="isum-f"><div class="isum-l">State</div><div class="isum-v">${SN[sc()]}</div></div>
+    <div class="isum-f"><div class="isum-l">Category</div><div class="isum-v">${document.getElementById('wc').options[document.getElementById('wc').selectedIndex].text.split(' - ')[0]}</div></div>
+    <div class="isum-f"><div class="isum-l">Benefits</div><div class="isum-v">${bl}</div></div>`;
+
+  document.getElementById('vamt').textContent=fmt(diff)+' more per year for a W2 hire';
+  document.getElementById('vdesc').innerHTML=`At ${fmt(sal)} salary, your true W2 annual cost is <b>${fmt(w2)}</b>. The same person as a 1099 contractor costs <b>${fmt(sal)}</b>. That is <b>${fmt(diff)}</b> in employer overhead - or <b>${fmt(diff/12)}</b> every month.`;
+  document.getElementById('qs1').textContent=fmt(w2/12);
+  document.getElementById('qs2').textContent=fmt(sal/12);
+  document.getElementById('qs3').textContent=fmt(diff/12);
+  document.getElementById('r-sal').textContent=fmt(sal);
+  document.getElementById('r-ss').textContent=fmt(ss);
+  document.getElementById('r-med').textContent=fmt(med);
+  document.getElementById('r-futa').textContent=fmt(futa);
+  document.getElementById('r-suta').textContent=fmt(sutaA);
+  document.getElementById('r-wc').textContent=fmt(wcA);
+  document.getElementById('r-ben').textContent=fmt(ben);
+  document.getElementById('r-w2tot').textContent=fmt(w2);
+  document.getElementById('r-crate').textContent=fmt(sal);
+  document.getElementById('r-ctot').textContent=fmt(sal);
+
+  const bars=[
+    {l:'Base Salary',v:sal,c:'s'},
+    {l:'Social Security',v:ss,c:'t'},
+    {l:'Medicare',v:med,c:'t'},
+    {l:'FUTA (Federal UI)',v:futa,c:'i'},
+    {l:'SUTA (State UI)',v:sutaA,c:'i'},
+    {l:'Workers Comp',v:wcA,c:'i'},
+    {l:'Benefits',v:ben,c:'b'}
+  ];
+  const mx=Math.max(...bars.map(x=>x.v));
+  document.getElementById('bars').innerHTML=bars.map(b=>`
+    <div class="brow">
+      <span class="blbl">${b.l}</span>
+      <div class="btr">
+        <div class="btrack"><div class="bfill ${b.c}" style="width:0%"></div></div>
+        <span class="bamt">${fmt(b.v)}</span>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('form-body').style.display='none';
+  const r=document.getElementById('results');
+  r.style.display='block';
+  setTimeout(()=>{
+    r.scrollIntoView({behavior:'smooth',block:'start'});
+    bars.forEach((b,i)=>{
+      const pct=mx>0?b.v/mx*100:0;
+      setTimeout(()=>{
+        const f=document.querySelectorAll('.bfill')[i];
+        if(f)f.style.width=pct+'%';
+      },100+i*60);
+    });
+  },60);
+  pills();
+}
+function editInputs(){
+  document.getElementById('form-body').style.display='block';
+  document.getElementById('results').style.display='none';
+  document.getElementById('form-body').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function tfaq(btn){
+  const a=btn.nextElementSibling,o=a.classList.contains('on');
+  document.querySelectorAll('.fa.on').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.fq.on').forEach(x=>x.classList.remove('on'));
+  if(!o){a.classList.add('on');btn.classList.add('on')}
+}
 function openMM(){document.getElementById('mm').classList.add('open');document.body.style.overflow='hidden'}
 function closeMM(e){if(!e||e.target===document.getElementById('mm')){document.getElementById('mm').classList.remove('open');document.body.style.overflow=''}}
 
-// Filter tabs - visual only for now
-document.querySelectorAll('.filter-tab').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
+let canvas=null;
+function openShare(){
+  document.getElementById('modal-bg').style.display='flex';
+  document.getElementById('ms1').classList.remove('hide');
+  document.getElementById('ms2').classList.remove('show');
+  canvas=null;
+}
+function closeShare(){document.getElementById('modal-bg').style.display='none'}
+function closeBg(e){if(e.target===document.getElementById('modal-bg'))closeShare()}
+function backToOpts(){
+  document.getElementById('ms1').classList.remove('hide');
+  document.getElementById('ms2').classList.remove('show');
+}
+async function genPreview(){
+  document.getElementById('ms1').classList.add('hide');
+  document.getElementById('ms2').classList.add('show');
+  document.getElementById('mprev-load').style.display='block';
+  document.getElementById('mprev-img').style.display='none';
+  await new Promise(r=>setTimeout(r,80));
+  try{
+    const nodes=[
+      document.getElementById('isummary'),
+      document.querySelector('.verdict'),
+      document.querySelector('.qs'),
+      document.querySelector('.cg'),
+      document.querySelector('.barsec')
+    ].filter(Boolean);
+    const cap=document.createElement('div');
+    cap.style.cssText='position:fixed;left:-9999px;top:0;width:740px;background:#F0F5FF;padding:30px;font-family:Plus Jakarta Sans,sans-serif;';
+    cap.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;margin-bottom:18px;border-bottom:2px solid #D0DCF0"><div style="font-family:Bricolage Grotesque,sans-serif;font-size:1.05rem;font-weight:700;color:#0B1D35">TrueCost<span style="color:#1DA355">Hiring</span>.com</div><div style="font-size:.72rem;color:#4A6080">W2 vs 1099 Cost Report - 2025</div></div>`;
+    nodes.forEach(n=>cap.appendChild(n.cloneNode(true)));
+    document.body.appendChild(cap);
+    const c=await html2canvas(cap,{scale:2,backgroundColor:'#F0F5FF',logging:false,useCORS:true});
+    document.body.removeChild(cap);
+    canvas=c;
+    const img=document.getElementById('mprev-img');
+    img.src=c.toDataURL('image/png');
+    img.style.display='block';
+    document.getElementById('mprev-load').style.display='none';
+  }catch(e){
+    document.getElementById('mprev-load').textContent='Preview unavailable. Use the share links above.';
+  }
+}
+function dlImg(){
+  if(!canvas){alert('Generate the preview first.');return}
+  const a=document.createElement('a');
+  a.download='hiring-cost-2025.png';
+  a.href=canvas.toDataURL('image/png');
+  a.click();
+}
+function st(){
+  const{sal,w2,diff}=LR;
+  return encodeURIComponent(`Just found out a ${fmt(sal)} employee actually costs ${fmt(w2)}/yr - ${fmt(diff)} in hidden employer overhead. Free calculator:`);
+}
+function shareX(){window.open(`https://twitter.com/intent/tweet?text=${st()}&url=${encodeURIComponent(location.href)}`,'_blank')}
+function shareLinkedIn(){window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(location.href)}`,'_blank')}
+function shareWhatsApp(){window.open(`https://api.whatsapp.com/send?text=${st()}%20${encodeURIComponent(location.href)}`,'_blank')}
+function copyLink(){
+  navigator.clipboard.writeText(location.href).then(()=>{
+    const b=event.currentTarget;const o=b.innerHTML;
+    b.innerHTML='Copied!';setTimeout(()=>b.innerHTML=o,2000);
   });
-});
+}
+window.addEventListener('DOMContentLoaded',pills);
 </script>
 </body>
 </html>
