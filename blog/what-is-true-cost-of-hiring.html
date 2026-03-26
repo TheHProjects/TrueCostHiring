@@ -189,7 +189,13 @@ footer{background:var(--navy);padding:24px 28px}
   <div class="nav">
     <a href="/" class="logo">
       <div class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#0F2952" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F2952"
+          stroke-width="2.4" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z
+                   M2 17l10 5 10-5
+                   M2 12l10 5 10-5"/>
+        </svg>
       </div>
       <div>
         <span class="logo-name">TrueCost<em>Hiring</em></span>
@@ -198,10 +204,79 @@ footer{background:var(--navy);padding:24px 28px}
     </a>
     <div class="nav-links">
       <a href="/#how-it-works" class="nav-a">How It Works</a>
-      <a href="/#faq" class="nav-a">FAQ</a>
-      <a href="/about.html" class="nav-a">About</a>
-      <a href="/" class="nav-btn">Calculate Now</a>
+      <a href="/#faq"          class="nav-a">FAQ</a>
+      <a href="/blog/"         class="nav-a">Learn</a>
+      <a href="/about.html"    class="nav-a">About</a>
+      <a href="/"              class="nav-btn">Calculate Now</a>
     </div>
+    <button class="hamburger" onclick="openMM()" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.2" stroke-linecap="round">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mm-overlay" id="mm" onclick="closeMM(event)">
+  <div class="mm-panel">
+    <div class="mm-top">
+      <div class="mm-logo">TrueCost<em>Hiring</em></div>
+      <button class="mm-x" onclick="closeMM()">x</button>
+    </div>
+    <div class="mm-links">
+      <a href="/" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round">
+          <rect x="4" y="2" width="16" height="20" rx="2"/>
+          <line x1="8" y1="6" x2="16" y2="6"/>
+          <line x1="8" y1="10" x2="12" y2="10"/>
+        </svg>
+        Calculator
+      </a>
+      <a href="/#how-it-works" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 8v4l3 3"/>
+        </svg>
+        How It Works
+      </a>
+      <a href="/#faq" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        FAQ
+      </a>
+      <a href="/blog/" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014
+                   19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+        Learn
+      </a>
+      <a href="/about.html" class="mm-lnk" onclick="closeMM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        About Us
+      </a>
+    </div>
+    <a href="/" class="mm-cta" onclick="closeMM()">
+      Calculate Now - Free
+    </a>
+  </div>
+</div>
     <button class="hamburger" onclick="openMM()" aria-label="Menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
@@ -472,11 +547,16 @@ footer{background:var(--navy);padding:24px 28px}
       <a href="/">Calculator</a>
       <a href="/#how-it-works">How It Works</a>
       <a href="/#faq">FAQ</a>
+      <a href="/blog/">Learn</a>
       <a href="/about.html">About</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Disclaimer</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/disclaimer.html">Disclaimer</a>
     </div>
-    <p class="foot-disc">Tax rates are estimates for educational purposes only. Consult a licensed CPA or HR professional before making hiring decisions.</p>
+    <p class="foot-disc">
+      Tax rates are estimates for educational purposes only.
+      Consult a licensed CPA or HR professional before
+      making hiring decisions.
+    </p>
   </div>
 </footer>
 
